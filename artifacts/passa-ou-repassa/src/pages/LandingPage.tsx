@@ -354,10 +354,8 @@ function OfferSection() {
             por apenas:
           </p>
 
-          <div className="price-pulse-wrap flex items-end justify-center gap-1 mb-2">
-            <span className="text-[#22C55E] font-black text-3xl mb-3 drop-shadow-sm">R$</span>
-            <span className="price-big">9</span>
-            <span className="text-[#22C55E] font-black text-4xl mb-3 drop-shadow-sm">,90</span>
+          <div className="price-pulse-wrap flex items-center justify-center mb-2">
+            <span className="preco">R$ 9,90</span>
           </div>
 
           <div className="inline-block bg-[#22C55E]/10 text-[#16a34a] font-bold text-xs px-4 py-1.5 rounded-full mb-6 border border-[#22C55E]/30">
