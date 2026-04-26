@@ -145,7 +145,7 @@ function HeroSection() {
             </ul>
 
             <div className="max-w-sm mx-auto md:mx-0 space-y-3">
-              <ScrollCTAButton label="👉 GARANTIR ACESSO POR R$ 9,90" size="lg" />
+              <CTAButton label="👉 GARANTIR ACESSO POR R$ 9,90" size="lg" />
               <p className="flex items-center justify-center md:justify-start gap-2 text-gray-500 text-xs font-medium">
                 <Lock className="w-4 h-4 text-[#22C55E]" />
                 🔒 Compra 100% segura · Liberação imediata
