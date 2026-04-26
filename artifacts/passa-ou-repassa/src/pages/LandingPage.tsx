@@ -42,6 +42,25 @@ function CTAButton({ label = "GARANTIR ACESSO AGORA", size = "lg" }: { label?: s
   );
 }
 
+function ScrollCTAButton({ label = "👉 APROVEITAR PROMOÇÃO AGORA", size = "lg" }: { label?: string; size?: "lg" | "sm" }) {
+  const sizeClass = size === "lg"
+    ? "text-base md:text-lg px-6 md:px-10 py-4 md:py-5"
+    : "text-sm md:text-base px-6 py-4";
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById("oferta");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  return (
+    <button
+      onClick={handleClick}
+      className={`btn-cta w-full ${sizeClass}`}
+    >
+      {label}
+    </button>
+  );
+}
+
 function CountdownTimer() {
   const [t, setT] = useState({ h: 1, m: 59, s: 45 });
   useEffect(() => {
@@ -126,7 +145,7 @@ function HeroSection() {
             </ul>
 
             <div className="max-w-sm mx-auto md:mx-0 space-y-3">
-              <CTAButton label="GARANTIR ACESSO AGORA" size="lg" />
+              <ScrollCTAButton size="lg" />
               <p className="flex items-center justify-center md:justify-start gap-2 text-gray-500 text-xs font-medium">
                 <Lock className="w-4 h-4 text-[#22C55E]" />
                 🔒 Compra 100% segura · Liberação imediata
@@ -259,7 +278,7 @@ function HowItWorksSection() {
         </div>
 
         <div className="mt-10 max-w-sm mx-auto">
-          <CTAButton label="QUERO GARANTIR AGORA" size="sm" />
+          <ScrollCTAButton size="sm" />
         </div>
       </div>
     </section>
@@ -296,7 +315,7 @@ function GallerySection() {
         </div>
 
         <div className="max-w-sm mx-auto">
-          <CTAButton label="GARANTIR ACESSO AGORA" size="sm" />
+          <ScrollCTAButton size="sm" />
         </div>
       </div>
     </section>
@@ -306,7 +325,7 @@ function GallerySection() {
 /* ─── 7. OFERTA ─── */
 function OfferSection() {
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-[#fffde7] to-[#fff8e1]">
+    <section id="oferta" className="py-16 px-4 bg-gradient-to-br from-[#fffde7] to-[#fff8e1]">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
           <div className="inline-block bg-[#dc2626] text-white font-black text-sm px-5 py-2 rounded-full mb-6 uppercase tracking-widest badge-animate shadow-lg">
@@ -513,9 +532,6 @@ function FAQSection() {
           ))}
         </div>
 
-        <div className="mt-10 max-w-xs mx-auto">
-          <CTAButton label="GARANTIR ACESSO AGORA" size="sm" />
-        </div>
       </div>
     </section>
   );
