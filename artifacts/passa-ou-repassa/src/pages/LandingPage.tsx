@@ -10,43 +10,62 @@ import {
   Trophy,
   Clock,
   Zap,
-  BookOpen,
   ChevronDown,
   ChevronUp,
   Instagram,
-  AlertTriangle,
+  Lock,
+  BookOpen,
+  Target,
+  Lightbulb,
 } from "lucide-react";
+
+import heroImg from "@assets/1753401907-afzst-r2cf-Designsemnome5_1777219596784.png";
+import coverImg from "@assets/1753397312-afzst-r2cf-Designsemnome1_1777219596876.png";
+import cardsGridImg from "@assets/1753397104-afzst-r2cf-Designsemnome_1777219597013.png";
+import cardsSpreadImg from "@assets/1753397812-afzst-r2cf-Designsemnome3_1777219596895.png";
+import cardsCloseImg from "@assets/1753397802-afzst-r2cf-Designsemnome2_1777219596915.png";
+import cardsYellowImg from "@assets/1753397825-afzst-r2cf-Designsemnome4_1777219596851.png";
 
 const CHECKOUT_LINK = "https://pay.kiwify.com.br/placeholder";
 
-function useScrollAnimation() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-  return { ref, isInView };
+function fadeUp(delay = 0) {
+  return {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-80px" },
+    transition: { duration: 0.55, delay, ease: "easeOut" },
+  };
 }
 
-function CTAButton({ label = "👉 GARANTIR ACESSO AGORA", size = "lg" }: { label?: string; size?: "sm" | "lg" }) {
-  const sizeClasses = size === "lg"
-    ? "text-lg md:text-2xl px-8 py-5 rounded-2xl"
-    : "text-base px-6 py-4 rounded-xl";
+function CTAButton({
+  label = "GARANTIR ACESSO AGORA",
+  variant = "green",
+  size = "lg",
+}: {
+  label?: string;
+  variant?: "green" | "orange";
+  size?: "lg" | "sm";
+}) {
+  const cls = [
+    "btn-cta",
+    variant === "orange" ? "btn-cta-orange" : "",
+    size === "lg" ? "text-base md:text-lg px-6 md:px-10 py-4 md:py-5 w-full" : "text-sm md:text-base px-6 py-4 w-full",
+  ]
+    .filter(Boolean)
+    .join(" ");
   return (
-    <a
-      href={CHECKOUT_LINK}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`cta-btn animate-pulse-cta inline-block text-white font-extrabold uppercase tracking-wide cursor-pointer w-full text-center ${sizeClasses}`}
-    >
+    <a href={CHECKOUT_LINK} target="_blank" rel="noopener noreferrer" className={cls}>
       {label}
     </a>
   );
 }
 
 function CountdownTimer() {
-  const [time, setTime] = useState({ h: 1, m: 59, s: 45 });
+  const [t, setT] = useState({ h: 1, m: 59, s: 45 });
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime((prev) => {
-        let { h, m, s } = prev;
+    const id = setInterval(() => {
+      setT((p) => {
+        let { h, m, s } = p;
         s--;
         if (s < 0) { s = 59; m--; }
         if (m < 0) { m = 59; h--; }
@@ -54,139 +73,194 @@ function CountdownTimer() {
         return { h, m, s };
       });
     }, 1000);
-    return () => clearInterval(interval);
+    return () => clearInterval(id);
   }, []);
-
   const pad = (n: number) => String(n).padStart(2, "0");
-
+  const cells = [
+    { v: t.h, l: "horas" },
+    { v: t.m, l: "min" },
+    { v: t.s, l: "seg" },
+  ];
   return (
-    <div className="flex items-center justify-center gap-2 my-4">
-      <span className="text-white font-bold text-sm uppercase tracking-wider mr-2">Oferta expira em:</span>
-      {[{ v: time.h, l: "horas" }, { v: time.m, l: "min" }, { v: time.s, l: "seg" }].map((item, i) => (
+    <div className="flex items-center justify-center gap-3 my-4">
+      <span className="text-[#1E293B] font-bold text-sm uppercase tracking-wide">Oferta expira em:</span>
+      {cells.map((c, i) => (
         <div key={i} className="flex flex-col items-center">
-          <div className="bg-white text-red-600 font-extrabold text-2xl rounded-lg w-14 h-14 flex items-center justify-center shadow-lg">
-            {pad(item.v)}
+          <div className="bg-[#1565FF] text-white font-black text-2xl rounded-xl w-14 h-14 flex items-center justify-center shadow-lg">
+            {pad(c.v)}
           </div>
-          <span className="text-white text-xs mt-1">{item.l}</span>
+          <span className="text-gray-600 text-xs mt-1 font-medium">{c.l}</span>
         </div>
       ))}
     </div>
   );
 }
 
+/* ─────────────────────────────────────────────
+   1. URGENCY BAR
+───────────────────────────────────────────── */
+function UrgencyBar() {
+  return (
+    <div className="urgency-bar py-3 px-4 text-center sticky top-0 z-50">
+      <p className="text-white font-bold text-sm md:text-base tracking-wide">
+        🔥 OFERTA ESPECIAL LIBERADA HOJE — ACESSO IMEDIATO POR APENAS R$ 9,90
+      </p>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   2. HERO
+───────────────────────────────────────────── */
 function HeroSection() {
   return (
-    <section className="hero-gradient relative overflow-hidden pb-12 pt-8">
-      <div className="absolute inset-0 pointer-events-none">
-        {["⭐", "🎉", "📚", "🏆", "✨", "🎯"].map((emoji, i) => (
-          <span
-            key={i}
-            className="absolute text-2xl opacity-20 animate-float"
-            style={{
-              top: `${10 + i * 15}%`,
-              left: i % 2 === 0 ? `${5 + i * 8}%` : `${75 + i * 3}%`,
-              animationDelay: `${i * 0.4}s`,
-            }}
-          >{emoji}</span>
-        ))}
-      </div>
-
-      <div className="max-w-2xl mx-auto px-4 text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="inline-block bg-yellow-400 text-blue-900 font-extrabold text-xs md:text-sm px-4 py-2 rounded-full mb-4 uppercase tracking-widest shadow-md animate-bounce-slow">
-            🔥 Material Digital Exclusivo para Professores
-          </div>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg">
-            🎉 Transforme Suas Aulas em um<br />
-            <span className="text-yellow-300">Show de Aprendizado</span><br />
-            com o Passa ou Repassa!
-          </h1>
-          <p className="text-blue-100 text-base md:text-xl mb-6 max-w-xl mx-auto leading-relaxed">
-            Atividade pronta para imprimir e aplicar com seus alunos do <strong className="text-white">4º e 5º ano</strong>. Mais participação, diversão e aprendizado em minutos.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="mb-8 rounded-3xl overflow-hidden shadow-2xl mx-auto max-w-md bg-white/10 border-4 border-yellow-300/60"
-        >
-          <div className="w-full h-64 md:h-80 bg-gradient-to-br from-yellow-400 via-orange-400 to-blue-500 flex items-center justify-center">
-            <div className="text-center p-8">
-              <div className="text-8xl mb-4 animate-bounce-slow">🎮</div>
-              <p className="text-white font-extrabold text-xl">PASSA OU REPASSA</p>
-              <p className="text-white/80 text-sm mt-1">4º e 5º ANO</p>
-              <p className="text-white/70 text-xs mt-2 italic">Imagem principal do produto aqui</p>
+    <section className="hero-bg pt-12 pb-16 px-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16">
+          {/* Text */}
+          <motion.div
+            className="flex-1 text-center md:text-left"
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
+          >
+            <div className="inline-block bg-[#FFD600] text-[#1E293B] font-extrabold text-xs px-4 py-2 rounded-full mb-5 uppercase tracking-widest shadow badge-animate">
+              🎓 Material Digital para Professores
             </div>
-          </div>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="space-y-4"
-        >
-          <CTAButton />
+            <h1 className="text-3xl md:text-5xl font-black text-[#1E293B] leading-tight mb-5">
+              🎉 Transforme Suas Aulas em um{" "}
+              <span className="text-[#1565FF]">Verdadeiro Show</span>{" "}
+              de Aprendizagem!
+            </h1>
 
-          <div className="flex flex-wrap justify-center gap-3 mt-4">
-            {["✔ Arquivo Digital em PDF", "✔ Acesso Imediato", "✔ Material Pronto"].map((s, i) => (
-              <span key={i} className="bg-white/20 text-white text-xs md:text-sm font-semibold px-3 py-2 rounded-full border border-white/30 backdrop-blur-sm">
-                {s}
-              </span>
-            ))}
-          </div>
-        </motion.div>
+            <p className="text-gray-600 text-base md:text-lg mb-7 leading-relaxed max-w-lg mx-auto md:mx-0">
+              Material pronto para imprimir e aplicar com turmas do{" "}
+              <strong className="text-[#1565FF]">4º e 5º ano</strong>. Mais participação, diversão e aprendizado em poucos minutos.
+            </p>
+
+            <ul className="space-y-2 mb-8 text-left max-w-sm mx-auto md:mx-0">
+              {[
+                "Arquivo digital em PDF — baixe agora",
+                "Acesso imediato após pagamento",
+                "Material 100% pronto para usar",
+                "Ideal para professores e reforço escolar",
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-[#1E293B] font-medium text-sm md:text-base">
+                  <CheckCircle2 className="w-5 h-5 text-[#22C55E] flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <div className="max-w-sm mx-auto md:mx-0 space-y-3">
+              <CTAButton label="GARANTIR ACESSO AGORA" variant="green" size="lg" />
+              <p className="flex items-center justify-center md:justify-start gap-2 text-gray-500 text-xs font-medium">
+                <Lock className="w-4 h-4 text-[#22C55E]" />
+                🔒 Compra 100% segura · Liberação imediata
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Hero Image */}
+          <motion.div
+            className="flex-1 flex justify-center"
+            initial={{ opacity: 0, x: 40, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <div className="float-img relative">
+              <div className="absolute -inset-4 bg-gradient-to-br from-[#FFD600]/30 to-[#1565FF]/20 rounded-3xl blur-2xl" />
+              <img
+                src={heroImg}
+                alt="Passa ou Repassa 4º e 5º Ano - Material Digital"
+                className="relative rounded-3xl shadow-2xl w-full max-w-sm md:max-w-md object-cover"
+                loading="eager"
+              />
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
+/* ─────────────────────────────────────────────
+   3. PROVA VISUAL
+───────────────────────────────────────────── */
+function ProofSection() {
+  return (
+    <section className="py-14 px-4 bg-[#F5F7FA]">
+      <div className="max-w-5xl mx-auto">
+        <motion.div {...fadeUp()} className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-2">
+            Conheça o material de perto
+          </h2>
+          <div className="w-16 h-1.5 bg-[#FFD600] rounded-full mx-auto" />
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          <motion.div {...fadeUp(0.1)} className="card-product">
+            <img
+              src={coverImg}
+              alt="Capa do material Passa ou Repassa"
+              className="w-full object-cover"
+              loading="lazy"
+            />
+          </motion.div>
+          <motion.div {...fadeUp(0.2)} className="card-product">
+            <img
+              src={cardsGridImg}
+              alt="Cards de perguntas do Passa ou Repassa"
+              className="w-full object-cover"
+              loading="lazy"
+            />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   4. BENEFÍCIOS
+───────────────────────────────────────────── */
 function BenefitsSection() {
-  const { ref, isInView } = useScrollAnimation();
   const benefits = [
-    { icon: <Zap className="w-6 h-6" />, title: "Aulas mais divertidas", desc: "Transforme qualquer aula em uma experiência inesquecível para os alunos." },
-    { icon: <Users className="w-6 h-6" />, title: "Alunos participam mais", desc: "Engaje toda a turma com a dinâmica de competição saudável." },
-    { icon: <CheckCircle2 className="w-6 h-6" />, title: "Fácil de aplicar", desc: "Instruções claras e simples. Qualquer professor consegue usar." },
-    { icon: <Clock className="w-6 h-6" />, title: "Economiza tempo", desc: "Chega de horas planejando. Material 100% pronto para usar." },
-    { icon: <Trophy className="w-6 h-6" />, title: "Aprendizado com gamificação", desc: "Conteúdo pedagógico embalado em competição — o melhor dos dois mundos." },
-    { icon: <Printer className="w-6 h-6" />, title: "Imprime quantas vezes quiser", desc: "Use e reutilize com todas as suas turmas ao longo do ano." },
+    { icon: <Target className="w-7 h-7" />, title: "Aulas mais divertidas", desc: "Transforme qualquer aula em uma experiência inesquecível.", color: "#1565FF" },
+    { icon: <Users className="w-7 h-7" />, title: "Mais engajamento", desc: "Toda a turma participa ativa e animadamente.", color: "#FF7A00" },
+    { icon: <Clock className="w-7 h-7" />, title: "Economiza horas de preparo", desc: "Material 100% pronto — é só imprimir e aplicar.", color: "#22C55E" },
+    { icon: <Printer className="w-7 h-7" />, title: "Pronto para imprimir", desc: "PDF otimizado para qualquer impressora.", color: "#1565FF" },
+    { icon: <Trophy className="w-7 h-7" />, title: "Gamificação inteligente", desc: "Conteúdo pedagógico embalado em competição saudável.", color: "#FF7A00" },
+    { icon: <Lightbulb className="w-7 h-7" />, title: "Aplicação imediata", desc: "Sem complicação — qualquer professor consegue usar.", color: "#22C55E" },
   ];
 
   return (
-    <section className="py-16 px-4 bg-white" ref={ref}>
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-2xl md:text-4xl font-extrabold text-blue-800 mb-3">
-            Por que professores <span className="text-orange-500">amam</span> esse material?
+    <section className="py-16 px-4 bg-white">
+      <div className="max-w-5xl mx-auto">
+        <motion.div {...fadeUp()} className="text-center mb-12">
+          <h2 className="text-2xl md:text-4xl font-black text-[#1E293B] mb-3">
+            Por que esse material faz{" "}
+            <span className="text-[#FF7A00]">tanto sucesso?</span>
           </h2>
-          <div className="w-20 h-1.5 bg-yellow-400 rounded-full mx-auto" />
+          <div className="w-16 h-1.5 bg-[#1565FF] rounded-full mx-auto" />
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {benefits.map((b, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border-2 border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300 group"
+              {...fadeUp(i * 0.08)}
+              className="card-product p-6 border border-gray-100 group"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
+              <div
+                className="w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-4 shadow-md group-hover:scale-110 transition-transform"
+                style={{ background: b.color }}
+              >
                 {b.icon}
               </div>
-              <h3 className="font-extrabold text-blue-900 text-base mb-2">{b.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{b.desc}</p>
+              <h3 className="font-black text-[#1E293B] text-base mb-2">{b.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{b.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -195,201 +269,260 @@ function BenefitsSection() {
   );
 }
 
+/* ─────────────────────────────────────────────
+   5. COMO FUNCIONA
+───────────────────────────────────────────── */
 function HowItWorksSection() {
-  const { ref, isInView } = useScrollAnimation();
   const steps = [
-    { num: "1", emoji: "📥", title: "Baixe o arquivo", desc: "Após a compra, você recebe acesso imediato ao PDF." },
-    { num: "2", emoji: "🖨️", title: "Imprima as folhas", desc: "Basta imprimir em casa, na escola ou em qualquer gráfica." },
-    { num: "3", emoji: "👥", title: "Divida a turma em equipes", desc: "Separe os alunos em dois times para começar a competição." },
-    { num: "4", emoji: "🎯", title: "Comece o desafio", desc: "Leia as perguntas e acompanhe a pontuação pelo placar." },
-    { num: "5", emoji: "🏆", title: "Veja seus alunos aprendendo", desc: "Assista ao engajamento acontecer em tempo real!" },
+    { emoji: "🛒", num: "01", title: "Compra realizada", desc: "Você escolhe o método de pagamento e finaliza com segurança." },
+    { emoji: "📥", num: "02", title: "Recebe acesso imediato", desc: "Em instantes, o link para download chega no seu e-mail." },
+    { emoji: "🖨️", num: "03", title: "Imprime o material", desc: "Basta imprimir em casa, na escola ou em qualquer gráfica." },
+    { emoji: "🏆", num: "04", title: "Aplica e transforma sua aula", desc: "Divida a turma, comece as perguntas e veja a magia acontecer!" },
   ];
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-yellow-50 to-orange-50" ref={ref}>
+    <section className="py-16 px-4 bg-[#F5F7FA]">
       <div className="max-w-3xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-2xl md:text-4xl font-extrabold text-orange-700 mb-3">
-            Como usar em <span className="text-blue-700">sala de aula</span>
+        <motion.div {...fadeUp()} className="text-center mb-12">
+          <h2 className="text-2xl md:text-4xl font-black text-[#1E293B] mb-3">
+            Como <span className="text-[#1565FF]">funciona?</span>
           </h2>
-          <div className="w-20 h-1.5 bg-orange-400 rounded-full mx-auto" />
+          <div className="w-16 h-1.5 bg-[#FFD600] rounded-full mx-auto" />
         </motion.div>
 
-        <div className="space-y-4">
-          {steps.map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -40 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: i * 0.12, duration: 0.5 }}
-              className="flex items-center gap-5 bg-white rounded-2xl p-5 shadow-md border-l-4 border-orange-400 hover:shadow-lg transition-shadow"
-            >
-              <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-orange-400 to-yellow-400 rounded-2xl flex items-center justify-center shadow-md">
-                <span className="text-2xl">{step.emoji}</span>
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="bg-blue-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">{step.num}</span>
-                  <h3 className="font-extrabold text-blue-900 text-base">{step.title}</h3>
+        <div className="relative">
+          {/* Connector line */}
+          <div className="hidden md:block absolute left-[2.25rem] top-10 bottom-10 w-0.5 bg-gradient-to-b from-[#1565FF] via-[#FFD600] to-[#22C55E]" />
+
+          <div className="space-y-5">
+            {steps.map((step, i) => (
+              <motion.div
+                key={i}
+                {...fadeUp(i * 0.12)}
+                className="flex items-start gap-5 bg-white rounded-2xl p-5 shadow-md border border-gray-100 hover:shadow-lg transition-shadow relative"
+              >
+                <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1565FF] to-[#0040CC] flex items-center justify-center shadow-md z-10">
+                  <span className="text-xl">{step.emoji}</span>
                 </div>
-                <p className="text-gray-600 text-sm">{step.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.7, duration: 0.5 }}
-          className="mt-10 text-center"
-        >
-          <CTAButton size="sm" />
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function WhatsIncludedSection() {
-  const { ref, isInView } = useScrollAnimation();
-  const items = [
-    { emoji: "📋", title: "Painel do Passa ou Repassa", desc: "Tabuleiro impresso e organizado para a dinâmica." },
-    { emoji: "❓", title: "Perguntas prontas", desc: "Questões alinhadas ao currículo do 4º e 5º ano." },
-    { emoji: "📊", title: "Placar oficial", desc: "Para registrar a pontuação de cada equipe." },
-    { emoji: "📜", title: "Regras do jogo", desc: "Instruções claras para aplicar sem complicação." },
-    { emoji: "📄", title: "Arquivo em PDF", desc: "Formato universal, funciona em qualquer impressora." },
-    { emoji: "♻️", title: "Material reutilizável", desc: "Use com diferentes turmas durante todo o ano letivo." },
-  ];
-
-  return (
-    <section className="py-16 px-4 bg-blue-700" ref={ref}>
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-3">
-            Você Recebe <span className="text-yellow-300">Tudo Isso:</span>
-          </h2>
-          <div className="w-20 h-1.5 bg-yellow-400 rounded-full mx-auto" />
-        </motion.div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-          {items.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: i * 0.1, duration: 0.4 }}
-              className="bg-white/10 backdrop-blur rounded-2xl p-5 flex items-start gap-4 border border-white/20 hover:bg-white/20 transition-colors"
-            >
-              <span className="text-3xl flex-shrink-0 mt-0.5">{item.emoji}</span>
-              <div>
-                <h3 className="text-white font-extrabold text-base">{item.title}</h3>
-                <p className="text-blue-200 text-sm mt-1">{item.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="rounded-3xl overflow-hidden shadow-2xl max-w-2xl mx-auto mb-10">
-          <div className="bg-gradient-to-br from-yellow-300 via-orange-300 to-pink-300 h-64 flex items-center justify-center">
-            <div className="text-center p-6">
-              <div className="text-6xl mb-4">📦</div>
-              <p className="text-blue-900 font-extrabold text-lg">Galeria de imagens do produto</p>
-              <p className="text-blue-800/70 text-sm mt-1">Aqui ficarão as imagens que você enviar</p>
-            </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[#1565FF] font-black text-xs tracking-widest">{step.num}</span>
+                    <h3 className="font-black text-[#1E293B] text-base">{step.title}</h3>
+                  </div>
+                  <p className="text-gray-500 text-sm">{step.desc}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          className="text-center"
-        >
-          <CTAButton />
+        <motion.div {...fadeUp(0.5)} className="mt-10 max-w-sm mx-auto">
+          <CTAButton label="QUERO GARANTIR AGORA" variant="green" />
         </motion.div>
       </div>
     </section>
   );
 }
 
+/* ─────────────────────────────────────────────
+   6. GALERIA DO PRODUTO
+───────────────────────────────────────────── */
+function GallerySection() {
+  const photos = [
+    { src: cardsSpreadImg, alt: "Cartas espalhadas do Passa ou Repassa" },
+    { src: cardsCloseImg, alt: "Cartas coloridas em leque" },
+    { src: cardsYellowImg, alt: "Cartas com o número 2 em destaque" },
+  ];
+
+  return (
+    <section className="py-16 px-4 bg-white">
+      <div className="max-w-5xl mx-auto">
+        <motion.div {...fadeUp()} className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-3">
+            Veja como é{" "}
+            <span className="text-[#FF7A00]">lindo e completo</span>
+          </h2>
+          <div className="w-16 h-1.5 bg-[#FF7A00] rounded-full mx-auto mb-4" />
+          <p className="text-gray-500 text-sm max-w-md mx-auto">
+            Material colorido, vibrante e profissional — seus alunos vão se empolgar só de ver!
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
+          {photos.map((p, i) => (
+            <motion.div key={i} {...fadeUp(i * 0.1)} className="card-product">
+              <img src={p.src} alt={p.alt} className="w-full object-cover aspect-square" loading="lazy" />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA after gallery */}
+        <motion.div {...fadeUp(0.35)} className="max-w-sm mx-auto">
+          <CTAButton label="GARANTIR ACESSO AGORA" variant="orange" />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   7. OFERTA PRINCIPAL
+───────────────────────────────────────────── */
+function OfferSection() {
+  return (
+    <section className="py-16 px-4 bg-gradient-to-br from-[#fffde7] to-[#fff8e1]">
+      <div className="max-w-2xl mx-auto">
+        <motion.div {...fadeUp()} className="text-center mb-8">
+          <div className="inline-block bg-[#dc2626] text-white font-black text-sm px-5 py-2 rounded-full mb-6 uppercase tracking-widest badge-animate shadow-lg">
+            🔥 OFERTA ESPECIAL DE HOJE
+          </div>
+          <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-2">
+            Garanta agora pelo melhor preço
+          </h2>
+        </motion.div>
+
+        <motion.div
+          {...fadeUp(0.1)}
+          className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border-2 border-[#FFD600] text-center"
+        >
+          <div className="flex justify-center mb-4">
+            <img
+              src={coverImg}
+              alt="Material Passa ou Repassa"
+              className="w-36 h-36 object-cover rounded-2xl shadow-lg wiggle-img"
+              loading="lazy"
+            />
+          </div>
+
+          <p className="text-gray-400 text-base font-medium mb-1">
+            De{" "}
+            <span className="line-through font-bold text-gray-500">R$ 37,90</span>{" "}
+            por apenas:
+          </p>
+
+          <div className="flex items-end justify-center gap-1 mb-2">
+            <span className="text-[#1565FF] font-black text-3xl mb-3">R$</span>
+            <span className="price-big">9</span>
+            <span className="text-[#1565FF] font-black text-4xl mb-3">,90</span>
+          </div>
+
+          <div className="inline-block bg-[#22C55E]/10 text-[#16a34a] font-bold text-xs px-4 py-1.5 rounded-full mb-6 border border-[#22C55E]/30">
+            ✅ VOCÊ ECONOMIZA R$ 28,00 AGORA
+          </div>
+
+          <CountdownTimer />
+
+          <div className="mt-6 max-w-xs mx-auto space-y-3">
+            <CTAButton label="GARANTIR ACESSO AGORA" variant="green" size="lg" />
+          </div>
+
+          <div className="mt-5 flex flex-wrap justify-center gap-4 text-xs text-gray-500 font-medium">
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Pagamento seguro</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Liberação imediata</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Promoção por tempo limitado</span>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   8. GARANTIA
+───────────────────────────────────────────── */
+function GuaranteeSection() {
+  return (
+    <section className="py-14 px-4 bg-white">
+      <div className="max-w-2xl mx-auto">
+        <motion.div
+          {...fadeUp()}
+          className="bg-gradient-to-br from-[#f0fdf4] to-[#dcfce7] rounded-3xl p-8 border-2 border-[#22C55E]/40 text-center shadow-lg"
+        >
+          <div className="w-20 h-20 bg-gradient-to-br from-[#22C55E] to-[#16a34a] rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
+            <Shield className="w-10 h-10 text-white" />
+          </div>
+          <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-4">
+            🛡 Compra Segura
+          </h2>
+          <p className="text-gray-600 text-base leading-relaxed max-w-lg mx-auto mb-6">
+            Ao concluir o pagamento, seu acesso é enviado{" "}
+            <strong className="text-[#22C55E]">imediatamente</strong> para o seu e-mail. Caso tenha qualquer dificuldade, nossa equipe oferece suporte completo para garantir que você consiga usar o material.
+          </p>
+          <div className="flex flex-wrap justify-center gap-5 text-sm text-[#16a34a] font-semibold">
+            <span className="flex items-center gap-1.5"><Lock className="w-4 h-4" />Dados protegidos</span>
+            <span className="flex items-center gap-1.5"><Download className="w-4 h-4" />Download garantido</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4" />Suporte humanizado</span>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   9. DEPOIMENTOS
+───────────────────────────────────────────── */
 function TestimonialsSection() {
-  const { ref, isInView } = useScrollAnimation();
   const testimonials = [
     {
-      stars: 5,
-      text: "Meus alunos amaram! A aula virou uma diversão incrível e eles pediram para repetir na semana seguinte. Nunca vi tanta participação!",
-      name: "Ana Paula",
+      text: "Meus alunos amaram a dinâmica! A aula virou uma festinha — todo mundo querendo participar. Nunca vi tanto engajamento em tão pouco tempo.",
+      name: "Ana Paula S.",
       role: "Professora do 5º Ano",
       initial: "A",
-      color: "from-blue-500 to-blue-600",
+      color: "#1565FF",
     },
     {
-      stars: 5,
-      text: "Economizei muito tempo de planejamento. O material já vem pronto e os alunos adoram. Vale cada centavo — recomendo para todos os colegas!",
-      name: "Carla Mendes",
-      role: "Pedagoga e Tutora",
+      text: "Economizei muito tempo de preparo. O material já vem pronto, organizado e super bonito. Vale muito o investimento — já usei com três turmas!",
+      name: "Carla M.",
+      role: "Pedagoga",
       initial: "C",
-      color: "from-green-500 to-emerald-600",
+      color: "#22C55E",
     },
     {
-      stars: 5,
-      text: "Material incrível, bem organizado e pronto para usar. Apliquei no reforço escolar e o resultado foi sensacional. Vou comprar os outros também!",
-      name: "Marcos Oliveira",
-      role: "Professor de Reforço Escolar",
+      text: "Material lindo e super fácil de aplicar. Imprimi, dividi a turma e em cinco minutos já estava rolando a gincana. Recomendo demais!",
+      name: "Marcos A.",
+      role: "Professor de Reforço",
       initial: "M",
-      color: "from-orange-500 to-amber-600",
+      color: "#FF7A00",
     },
   ];
 
   return (
-    <section className="py-16 px-4 bg-white" ref={ref}>
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-2xl md:text-4xl font-extrabold text-blue-800 mb-3">
-            O que estão <span className="text-green-500">dizendo</span>
+    <section className="py-16 px-4 bg-[#F5F7FA]">
+      <div className="max-w-5xl mx-auto">
+        <motion.div {...fadeUp()} className="text-center mb-12">
+          <h2 className="text-2xl md:text-4xl font-black text-[#1E293B] mb-3">
+            Quem comprou <span className="text-[#1565FF]">aprovou</span>
           </h2>
-          <div className="w-20 h-1.5 bg-green-400 rounded-full mx-auto mb-4" />
-          <p className="text-gray-500 text-sm">Quem já usou aprova!</p>
+          <div className="w-16 h-1.5 bg-[#FFD600] rounded-full mx-auto mb-4" />
+          <p className="text-gray-500 text-sm">Resultados reais de quem já usa em sala de aula</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.15, duration: 0.5 }}
-              className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-6 shadow-md border border-blue-100 hover:shadow-xl transition-shadow relative"
+              {...fadeUp(i * 0.12)}
+              className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-xl transition-shadow"
             >
               <div className="flex gap-0.5 mb-4">
-                {Array.from({ length: t.stars }).map((_, j) => (
-                  <Star key={j} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                {Array.from({ length: 5 }).map((_, j) => (
+                  <Star key={j} className="w-5 h-5 fill-[#FFD600] text-[#FFD600]" />
                 ))}
               </div>
-              <p className="text-gray-700 text-sm leading-relaxed italic mb-6">"{t.text}"</p>
+              <p className="text-gray-700 text-sm leading-relaxed italic mb-6">
+                "{t.text}"
+              </p>
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white font-extrabold text-lg`}>
+                <div
+                  className="w-11 h-11 rounded-full flex items-center justify-center text-white font-black text-lg shadow"
+                  style={{ background: t.color }}
+                >
                   {t.initial}
                 </div>
                 <div>
-                  <p className="font-extrabold text-gray-900 text-sm">{t.name}</p>
-                  <p className="text-gray-500 text-xs">{t.role}</p>
+                  <p className="font-black text-[#1E293B] text-sm">{t.name}</p>
+                  <p className="text-gray-400 text-xs">{t.role}</p>
                 </div>
               </div>
             </motion.div>
@@ -400,147 +533,60 @@ function TestimonialsSection() {
   );
 }
 
-function OfferSection() {
-  const { ref, isInView } = useScrollAnimation();
-
-  return (
-    <section className="py-16 px-4 bg-gradient-to-br from-orange-500 to-red-500" ref={ref}>
-      <div className="max-w-2xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="inline-block badge-urgency text-white font-extrabold text-sm px-5 py-2 rounded-full mb-6 uppercase tracking-widest">
-            🔥 Oferta Especial de Hoje
-          </div>
-
-          <div className="bg-white/10 backdrop-blur rounded-3xl p-8 border-2 border-white/30 mb-6">
-            <p className="text-white/80 text-lg mb-2">De <span className="line-through font-bold">R$ 37,90</span> por apenas:</p>
-
-            <div className="mb-4">
-              <span className="text-white/70 text-2xl font-bold">R$</span>
-              <span className="text-7xl md:text-9xl font-extrabold text-white leading-none"> 9</span>
-              <span className="text-4xl font-extrabold text-white">,90</span>
-            </div>
-
-            <div className="inline-block bg-green-400 text-green-900 font-extrabold text-sm px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
-              ✅ PROMOÇÃO ATIVA
-            </div>
-
-            <CountdownTimer />
-          </div>
-
-          <div className="flex items-center justify-center gap-2 bg-white/20 backdrop-blur text-white font-bold text-sm px-5 py-3 rounded-full mb-6 border border-white/30">
-            <AlertTriangle className="w-4 h-4 text-yellow-300" />
-            <span>⚠ Promoção por tempo limitado — pode encerrar a qualquer momento</span>
-          </div>
-
-          <CTAButton label="👉 QUERO GARANTIR MEU ACESSO POR R$ 9,90" />
-
-          <div className="mt-6 flex flex-wrap justify-center gap-4 text-white/80 text-sm">
-            <span className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-green-300" /> Compra 100% Segura</span>
-            <span className="flex items-center gap-1.5"><Download className="w-4 h-4 text-blue-300" /> Acesso Imediato</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-yellow-300" /> Suporte Garantido</span>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function GuaranteeSection() {
-  const { ref, isInView } = useScrollAnimation();
-
-  return (
-    <section className="py-16 px-4 bg-white" ref={ref}>
-      <div className="max-w-2xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-8 border-2 border-green-200 text-center shadow-lg"
-        >
-          <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-            <Shield className="w-10 h-10 text-white" />
-          </div>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-green-800 mb-4">
-            🛡 Compra Segura e Garantida
-          </h2>
-          <p className="text-gray-700 text-base leading-relaxed max-w-lg mx-auto mb-6">
-            Você recebe acesso imediato ao material após a confirmação do pagamento. Se tiver qualquer problema no acesso ao arquivo, nossa equipe de suporte está pronta para te ajudar sem enrolação.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-green-800 font-semibold">
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-green-600" />Pagamento seguro</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-green-600" />Suporte real</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-green-600" />Download garantido</span>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
+/* ─────────────────────────────────────────────
+   10. FAQ
+───────────────────────────────────────────── */
 function FAQSection() {
-  const { ref, isInView } = useScrollAnimation();
   const [open, setOpen] = useState<number | null>(null);
 
   const faqs = [
     {
       q: "Como recebo o material após a compra?",
-      a: "Assim que seu pagamento for confirmado, você recebe um link por e-mail para baixar o arquivo em PDF. O acesso é imediato — em menos de 5 minutos você já terá o material em mãos!",
+      a: "Assim que o pagamento for confirmado, você recebe um e-mail com o link para download imediato. Em menos de 5 minutos o arquivo já está com você!",
     },
     {
-      q: "O material é físico ou digital?",
-      a: "É 100% digital, em formato PDF. Você faz o download, imprime em casa ou na escola e está pronto para usar. Nada de esperar pelo Correios!",
+      q: "É físico ou digital?",
+      a: "100% digital em formato PDF. Você faz o download e imprime quantas vezes quiser — sem espera por frete, sem custo extra.",
     },
     {
       q: "Posso imprimir quantas vezes quiser?",
-      a: "Sim! Após a compra, o arquivo é seu para sempre. Você pode imprimir para quantas turmas quiser, durante todo o ano letivo, sem nenhum custo adicional.",
+      a: "Sim! O arquivo é seu para sempre. Imprima para quantas turmas precisar, o ano todo, sem nenhum custo adicional.",
     },
     {
-      q: "Serve para reforço escolar fora da escola?",
-      a: "Com certeza! O material funciona perfeitamente para aulas particulares, reforço escolar, cursinhos, escolas, e até em casa com os filhos. É versátil e fácil de adaptar.",
+      q: "Serve para reforço escolar?",
+      a: "Com certeza! Funciona perfeitamente para aulas particulares, reforço, cursinhos, escolas e até em casa com os filhos.",
     },
     {
       q: "O pagamento é seguro?",
-      a: "Totalmente! Utilizamos plataformas de pagamento criptografadas e reconhecidas no mercado. Seus dados financeiros estão completamente protegidos.",
+      a: "Totalmente! Utilizamos plataformas de pagamento com criptografia de ponta. Seus dados estão 100% protegidos.",
     },
   ];
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-blue-50 to-indigo-50" ref={ref}>
+    <section className="py-16 px-4 bg-white">
       <div className="max-w-2xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-2xl md:text-4xl font-extrabold text-blue-800 mb-3">
-            Dúvidas Frequentes
+        <motion.div {...fadeUp()} className="text-center mb-12">
+          <h2 className="text-2xl md:text-4xl font-black text-[#1E293B] mb-3">
+            Perguntas <span className="text-[#FF7A00]">Frequentes</span>
           </h2>
-          <div className="w-20 h-1.5 bg-blue-400 rounded-full mx-auto" />
+          <div className="w-16 h-1.5 bg-[#FF7A00] rounded-full mx-auto" />
         </motion.div>
 
         <div className="space-y-3">
           {faqs.map((faq, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.08, duration: 0.4 }}
-              className="bg-white rounded-2xl shadow-sm border border-blue-100 overflow-hidden"
+              {...fadeUp(i * 0.07)}
+              className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:border-[#1565FF]/40 transition-colors"
             >
               <button
-                className="w-full flex items-center justify-between p-5 text-left hover:bg-blue-50 transition-colors"
+                className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-blue-50/50 transition-colors"
                 onClick={() => setOpen(open === i ? null : i)}
               >
-                <span className="font-bold text-blue-900 text-sm md:text-base pr-4">{faq.q}</span>
+                <span className="font-bold text-[#1E293B] text-sm md:text-base pr-4">{faq.q}</span>
                 {open === i
-                  ? <ChevronUp className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                  : <ChevronDown className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                }
+                  ? <ChevronUp className="w-5 h-5 text-[#1565FF] flex-shrink-0" />
+                  : <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />}
               </button>
               <AnimatePresence>
                 {open === i && (
@@ -548,10 +594,10 @@ function FAQSection() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.28 }}
                     className="overflow-hidden"
                   >
-                    <p className="px-5 pb-5 text-gray-600 text-sm leading-relaxed border-t border-blue-100 pt-4">
+                    <p className="px-5 pb-5 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-4 bg-white">
                       {faq.a}
                     </p>
                   </motion.div>
@@ -561,61 +607,62 @@ function FAQSection() {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="mt-10 text-center"
-        >
-          <CTAButton size="sm" />
+        <motion.div {...fadeUp(0.45)} className="mt-10 max-w-xs mx-auto">
+          <CTAButton label="GARANTIR ACESSO AGORA" variant="green" />
         </motion.div>
       </div>
     </section>
   );
 }
 
+/* ─────────────────────────────────────────────
+   FINAL CTA BAND
+───────────────────────────────────────────── */
 function FinalCTASection() {
-  const { ref, isInView } = useScrollAnimation();
-
   return (
-    <section className="py-16 px-4 hero-gradient" ref={ref}>
+    <section className="py-14 px-4 section-blue">
       <div className="max-w-2xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="text-5xl mb-4 animate-bounce-slow">🚀</div>
-          <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-4 leading-tight">
-            Suas aulas jamais serão<br /><span className="text-yellow-300">as mesmas!</span>
+        <motion.div {...fadeUp()}>
+          <div className="text-5xl mb-4 float-img inline-block">🚀</div>
+          <h2 className="text-2xl md:text-4xl font-black text-white mb-4 leading-tight">
+            Suas aulas nunca mais vão ser as mesmas!
           </h2>
           <p className="text-blue-100 text-base md:text-lg mb-8 max-w-md mx-auto">
-            Junte-se a centenas de professores que já transformaram suas salas de aula com o Passa ou Repassa!
+            Junte-se a centenas de professores que já revolucionaram suas salas de aula com o Passa ou Repassa.
           </p>
-          <CTAButton label="👉 GARANTIR ACESSO AGORA POR R$ 9,90" />
-          <p className="text-blue-200/80 text-xs mt-4">🔒 Compra segura · 📥 Acesso imediato · 🖨️ Pronto para imprimir</p>
+          <div className="max-w-sm mx-auto space-y-4">
+            <CTAButton label="GARANTIR ACESSO POR R$ 9,90" variant="orange" size="lg" />
+            <div className="flex flex-wrap justify-center gap-4 text-blue-200/80 text-xs font-medium">
+              <span>🔒 Compra segura</span>
+              <span>📥 Acesso imediato</span>
+              <span>🖨️ Pronto para imprimir</span>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
   );
 }
 
+/* ─────────────────────────────────────────────
+   RODAPÉ
+───────────────────────────────────────────── */
 function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-400 py-10 px-4">
+    <footer className="bg-[#0f172a] text-gray-400 py-10 px-4">
       <div className="max-w-2xl mx-auto text-center">
         <a
           href="https://www.instagram.com/educacaokids_ofc?igsh=ZzZnNW91eHhqenZ6"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-white hover:text-pink-400 transition-colors font-semibold text-base mb-4"
+          className="inline-flex items-center gap-2.5 text-white hover:text-pink-400 transition-colors font-bold text-base mb-5 group"
         >
-          <Instagram className="w-5 h-5" />
+          <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
           @educacaokids_ofc
         </a>
-        <div className="border-t border-gray-800 mt-4 pt-4">
+        <div className="border-t border-gray-800 mt-2 pt-5">
           <p className="text-gray-600 text-sm">
-            Todos os direitos reservados © Educação Kids
+            © Educação Kids — Todos os direitos reservados
           </p>
         </div>
       </div>
@@ -623,16 +670,21 @@ function Footer() {
   );
 }
 
+/* ─────────────────────────────────────────────
+   PAGE
+───────────────────────────────────────────── */
 export default function LandingPage() {
   return (
     <div className="w-full overflow-x-hidden">
+      <UrgencyBar />
       <HeroSection />
+      <ProofSection />
       <BenefitsSection />
       <HowItWorksSection />
-      <WhatsIncludedSection />
-      <TestimonialsSection />
+      <GallerySection />
       <OfferSection />
       <GuaranteeSection />
+      <TestimonialsSection />
       <FAQSection />
       <FinalCTASection />
       <Footer />
