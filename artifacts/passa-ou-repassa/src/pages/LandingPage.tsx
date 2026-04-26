@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   CheckCircle2,
   Star,
@@ -9,12 +9,10 @@ import {
   Users,
   Trophy,
   Clock,
-  Zap,
   ChevronDown,
   ChevronUp,
   Instagram,
   Lock,
-  BookOpen,
   Target,
   Lightbulb,
 } from "lucide-react";
@@ -28,33 +26,17 @@ import cardsYellowImg from "@assets/1753397825-afzst-r2cf-Designsemnome4_1777219
 
 const CHECKOUT_LINK = "https://pay.kiwify.com.br/placeholder";
 
-function fadeUp(delay = 0) {
-  return {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-80px" },
-    transition: { duration: 0.55, delay, ease: "easeOut" },
-  };
-}
-
-function CTAButton({
-  label = "GARANTIR ACESSO AGORA",
-  variant = "green",
-  size = "lg",
-}: {
-  label?: string;
-  variant?: "green" | "orange";
-  size?: "lg" | "sm";
-}) {
-  const cls = [
-    "btn-cta",
-    variant === "orange" ? "btn-cta-orange" : "",
-    size === "lg" ? "text-base md:text-lg px-6 md:px-10 py-4 md:py-5 w-full" : "text-sm md:text-base px-6 py-4 w-full",
-  ]
-    .filter(Boolean)
-    .join(" ");
+function CTAButton({ label = "GARANTIR ACESSO AGORA", size = "lg" }: { label?: string; size?: "lg" | "sm" }) {
+  const sizeClass = size === "lg"
+    ? "text-base md:text-lg px-6 md:px-10 py-4 md:py-5"
+    : "text-sm md:text-base px-6 py-4";
   return (
-    <a href={CHECKOUT_LINK} target="_blank" rel="noopener noreferrer" className={cls}>
+    <a
+      href={CHECKOUT_LINK}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`btn-cta w-full ${sizeClass}`}
+    >
       {label}
     </a>
   );
@@ -76,15 +58,10 @@ function CountdownTimer() {
     return () => clearInterval(id);
   }, []);
   const pad = (n: number) => String(n).padStart(2, "0");
-  const cells = [
-    { v: t.h, l: "horas" },
-    { v: t.m, l: "min" },
-    { v: t.s, l: "seg" },
-  ];
   return (
     <div className="flex items-center justify-center gap-3 my-4">
       <span className="text-[#1E293B] font-bold text-sm uppercase tracking-wide">Oferta expira em:</span>
-      {cells.map((c, i) => (
+      {[{ v: t.h, l: "horas" }, { v: t.m, l: "min" }, { v: t.s, l: "seg" }].map((c, i) => (
         <div key={i} className="flex flex-col items-center">
           <div className="bg-[#1565FF] text-white font-black text-2xl rounded-xl w-14 h-14 flex items-center justify-center shadow-lg">
             {pad(c.v)}
@@ -96,9 +73,7 @@ function CountdownTimer() {
   );
 }
 
-/* ─────────────────────────────────────────────
-   1. URGENCY BAR
-───────────────────────────────────────────── */
+/* ─── 1. URGENCY BAR ─── */
 function UrgencyBar() {
   return (
     <div className="urgency-bar py-3 px-4 text-center sticky top-0 z-50">
@@ -109,21 +84,13 @@ function UrgencyBar() {
   );
 }
 
-/* ─────────────────────────────────────────────
-   2. HERO
-───────────────────────────────────────────── */
+/* ─── 2. HERO ─── */
 function HeroSection() {
   return (
     <section className="hero-bg pt-12 pb-16 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16">
-          {/* Text */}
-          <motion.div
-            className="flex-1 text-center md:text-left"
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.65, ease: "easeOut" }}
-          >
+          <div className="flex-1 text-center md:text-left">
             <div className="inline-block bg-[#FFD600] text-[#1E293B] font-extrabold text-xs px-4 py-2 rounded-full mb-5 uppercase tracking-widest shadow badge-animate">
               🎓 Material Digital para Professores
             </div>
@@ -154,21 +121,15 @@ function HeroSection() {
             </ul>
 
             <div className="max-w-sm mx-auto md:mx-0 space-y-3">
-              <CTAButton label="GARANTIR ACESSO AGORA" variant="green" size="lg" />
+              <CTAButton label="GARANTIR ACESSO AGORA" size="lg" />
               <p className="flex items-center justify-center md:justify-start gap-2 text-gray-500 text-xs font-medium">
                 <Lock className="w-4 h-4 text-[#22C55E]" />
                 🔒 Compra 100% segura · Liberação imediata
               </p>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Hero Image */}
-          <motion.div
-            className="flex-1 flex justify-center"
-            initial={{ opacity: 0, x: 40, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
+          <div className="flex-1 flex justify-center">
             <div className="float-img relative">
               <div className="absolute -inset-4 bg-gradient-to-br from-[#FFD600]/30 to-[#1565FF]/20 rounded-3xl blur-2xl" />
               <img
@@ -178,53 +139,38 @@ function HeroSection() {
                 loading="eager"
               />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-/* ─────────────────────────────────────────────
-   3. PROVA VISUAL
-───────────────────────────────────────────── */
+/* ─── 3. PROVA VISUAL ─── */
 function ProofSection() {
   return (
     <section className="py-14 px-4 bg-[#F5F7FA]">
       <div className="max-w-5xl mx-auto">
-        <motion.div {...fadeUp()} className="text-center mb-10">
+        <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-2">
             Conheça o material de perto
           </h2>
           <div className="w-16 h-1.5 bg-[#FFD600] rounded-full mx-auto" />
-        </motion.div>
-
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-          <motion.div {...fadeUp(0.1)} className="card-product">
-            <img
-              src={coverImg}
-              alt="Capa do material Passa ou Repassa"
-              className="w-full object-cover"
-              loading="lazy"
-            />
-          </motion.div>
-          <motion.div {...fadeUp(0.2)} className="card-product">
-            <img
-              src={cardsGridImg}
-              alt="Cards de perguntas do Passa ou Repassa"
-              className="w-full object-cover"
-              loading="lazy"
-            />
-          </motion.div>
+          <div className="card-product">
+            <img src={coverImg} alt="Capa do material Passa ou Repassa" className="w-full object-cover" loading="lazy" />
+          </div>
+          <div className="card-product">
+            <img src={cardsGridImg} alt="Cards de perguntas do Passa ou Repassa" className="w-full object-cover" loading="lazy" />
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-/* ─────────────────────────────────────────────
-   4. BENEFÍCIOS
-───────────────────────────────────────────── */
+/* ─── 4. BENEFÍCIOS ─── */
 function BenefitsSection() {
   const benefits = [
     { icon: <Target className="w-7 h-7" />, title: "Aulas mais divertidas", desc: "Transforme qualquer aula em uma experiência inesquecível.", color: "#1565FF" },
@@ -238,30 +184,26 @@ function BenefitsSection() {
   return (
     <section className="py-16 px-4 bg-white">
       <div className="max-w-5xl mx-auto">
-        <motion.div {...fadeUp()} className="text-center mb-12">
+        <div className="text-center mb-12">
           <h2 className="text-2xl md:text-4xl font-black text-[#1E293B] mb-3">
             Por que esse material faz{" "}
             <span className="text-[#FF7A00]">tanto sucesso?</span>
           </h2>
           <div className="w-16 h-1.5 bg-[#1565FF] rounded-full mx-auto" />
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {benefits.map((b, i) => (
-            <motion.div
-              key={i}
-              {...fadeUp(i * 0.08)}
-              className="card-product p-6 border border-gray-100 group"
-            >
+            <div key={i} className="card-product p-6 border border-gray-100 group">
               <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-4 shadow-md group-hover:scale-110 transition-transform"
+                className="w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-4 shadow-md group-hover:scale-110 transition-transform duration-200"
                 style={{ background: b.color }}
               >
                 {b.icon}
               </div>
               <h3 className="font-black text-[#1E293B] text-base mb-2">{b.title}</h3>
               <p className="text-gray-500 text-sm leading-relaxed">{b.desc}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -269,9 +211,7 @@ function BenefitsSection() {
   );
 }
 
-/* ─────────────────────────────────────────────
-   5. COMO FUNCIONA
-───────────────────────────────────────────── */
+/* ─── 5. COMO FUNCIONA ─── */
 function HowItWorksSection() {
   const steps = [
     { emoji: "🛒", num: "01", title: "Compra realizada", desc: "Você escolhe o método de pagamento e finaliza com segurança." },
@@ -283,23 +223,20 @@ function HowItWorksSection() {
   return (
     <section className="py-16 px-4 bg-[#F5F7FA]">
       <div className="max-w-3xl mx-auto">
-        <motion.div {...fadeUp()} className="text-center mb-12">
+        <div className="text-center mb-12">
           <h2 className="text-2xl md:text-4xl font-black text-[#1E293B] mb-3">
             Como <span className="text-[#1565FF]">funciona?</span>
           </h2>
           <div className="w-16 h-1.5 bg-[#FFD600] rounded-full mx-auto" />
-        </motion.div>
+        </div>
 
         <div className="relative">
-          {/* Connector line */}
           <div className="hidden md:block absolute left-[2.25rem] top-10 bottom-10 w-0.5 bg-gradient-to-b from-[#1565FF] via-[#FFD600] to-[#22C55E]" />
-
           <div className="space-y-5">
             {steps.map((step, i) => (
-              <motion.div
+              <div
                 key={i}
-                {...fadeUp(i * 0.12)}
-                className="flex items-start gap-5 bg-white rounded-2xl p-5 shadow-md border border-gray-100 hover:shadow-lg transition-shadow relative"
+                className="flex items-start gap-5 bg-white rounded-2xl p-5 shadow-md border border-gray-100 hover:shadow-lg transition-shadow duration-200 relative"
               >
                 <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1565FF] to-[#0040CC] flex items-center justify-center shadow-md z-10">
                   <span className="text-xl">{step.emoji}</span>
@@ -311,80 +248,71 @@ function HowItWorksSection() {
                   </div>
                   <p className="text-gray-500 text-sm">{step.desc}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
 
-        <motion.div {...fadeUp(0.5)} className="mt-10 max-w-sm mx-auto">
-          <CTAButton label="QUERO GARANTIR AGORA" variant="green" />
-        </motion.div>
+        <div className="mt-10 max-w-sm mx-auto">
+          <CTAButton label="QUERO GARANTIR AGORA" size="sm" />
+        </div>
       </div>
     </section>
   );
 }
 
-/* ─────────────────────────────────────────────
-   6. GALERIA DO PRODUTO
-───────────────────────────────────────────── */
+/* ─── 6. GALERIA ─── */
 function GallerySection() {
   const photos = [
     { src: cardsSpreadImg, alt: "Cartas espalhadas do Passa ou Repassa" },
     { src: cardsCloseImg, alt: "Cartas coloridas em leque" },
-    { src: cardsYellowImg, alt: "Cartas com o número 2 em destaque" },
+    { src: cardsYellowImg, alt: "Cartas com número 2 em destaque" },
   ];
 
   return (
     <section className="py-16 px-4 bg-white">
       <div className="max-w-5xl mx-auto">
-        <motion.div {...fadeUp()} className="text-center mb-10">
+        <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-3">
-            Veja como é{" "}
-            <span className="text-[#FF7A00]">lindo e completo</span>
+            Veja como é <span className="text-[#FF7A00]">lindo e completo</span>
           </h2>
           <div className="w-16 h-1.5 bg-[#FF7A00] rounded-full mx-auto mb-4" />
           <p className="text-gray-500 text-sm max-w-md mx-auto">
             Material colorido, vibrante e profissional — seus alunos vão se empolgar só de ver!
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
           {photos.map((p, i) => (
-            <motion.div key={i} {...fadeUp(i * 0.1)} className="card-product">
+            <div key={i} className="card-product">
               <img src={p.src} alt={p.alt} className="w-full object-cover aspect-square" loading="lazy" />
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* CTA after gallery */}
-        <motion.div {...fadeUp(0.35)} className="max-w-sm mx-auto">
-          <CTAButton label="GARANTIR ACESSO AGORA" variant="orange" />
-        </motion.div>
+        <div className="max-w-sm mx-auto">
+          <CTAButton label="GARANTIR ACESSO AGORA" size="sm" />
+        </div>
       </div>
     </section>
   );
 }
 
-/* ─────────────────────────────────────────────
-   7. OFERTA PRINCIPAL
-───────────────────────────────────────────── */
+/* ─── 7. OFERTA ─── */
 function OfferSection() {
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-[#fffde7] to-[#fff8e1]">
       <div className="max-w-2xl mx-auto">
-        <motion.div {...fadeUp()} className="text-center mb-8">
+        <div className="text-center mb-8">
           <div className="inline-block bg-[#dc2626] text-white font-black text-sm px-5 py-2 rounded-full mb-6 uppercase tracking-widest badge-animate shadow-lg">
             🔥 OFERTA ESPECIAL DE HOJE
           </div>
           <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-2">
             Garanta agora pelo melhor preço
           </h2>
-        </motion.div>
+        </div>
 
-        <motion.div
-          {...fadeUp(0.1)}
-          className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border-2 border-[#FFD600] text-center"
-        >
+        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border-2 border-[#FFD600] text-center">
           <div className="flex justify-center mb-4">
             <img
               src={coverImg}
@@ -395,9 +323,7 @@ function OfferSection() {
           </div>
 
           <p className="text-gray-400 text-base font-medium mb-1">
-            De{" "}
-            <span className="line-through font-bold text-gray-500">R$ 37,90</span>{" "}
-            por apenas:
+            De <span className="line-through font-bold text-gray-500">R$ 37,90</span> por apenas:
           </p>
 
           <div className="flex items-end justify-center gap-1 mb-2">
@@ -412,8 +338,8 @@ function OfferSection() {
 
           <CountdownTimer />
 
-          <div className="mt-6 max-w-xs mx-auto space-y-3">
-            <CTAButton label="GARANTIR ACESSO AGORA" variant="green" size="lg" />
+          <div className="mt-6 max-w-xs mx-auto">
+            <CTAButton label="GARANTIR ACESSO AGORA" size="lg" />
           </div>
 
           <div className="mt-5 flex flex-wrap justify-center gap-4 text-xs text-gray-500 font-medium">
@@ -421,23 +347,18 @@ function OfferSection() {
             <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Liberação imediata</span>
             <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Promoção por tempo limitado</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ─────────────────────────────────────────────
-   8. GARANTIA
-───────────────────────────────────────────── */
+/* ─── 8. GARANTIA ─── */
 function GuaranteeSection() {
   return (
     <section className="py-14 px-4 bg-white">
       <div className="max-w-2xl mx-auto">
-        <motion.div
-          {...fadeUp()}
-          className="bg-gradient-to-br from-[#f0fdf4] to-[#dcfce7] rounded-3xl p-8 border-2 border-[#22C55E]/40 text-center shadow-lg"
-        >
+        <div className="bg-gradient-to-br from-[#f0fdf4] to-[#dcfce7] rounded-3xl p-8 border-2 border-[#22C55E]/40 text-center shadow-lg">
           <div className="w-20 h-20 bg-gradient-to-br from-[#22C55E] to-[#16a34a] rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
             <Shield className="w-10 h-10 text-white" />
           </div>
@@ -453,15 +374,13 @@ function GuaranteeSection() {
             <span className="flex items-center gap-1.5"><Download className="w-4 h-4" />Download garantido</span>
             <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4" />Suporte humanizado</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ─────────────────────────────────────────────
-   9. DEPOIMENTOS
-───────────────────────────────────────────── */
+/* ─── 9. DEPOIMENTOS ─── */
 function TestimonialsSection() {
   const testimonials = [
     {
@@ -490,29 +409,26 @@ function TestimonialsSection() {
   return (
     <section className="py-16 px-4 bg-[#F5F7FA]">
       <div className="max-w-5xl mx-auto">
-        <motion.div {...fadeUp()} className="text-center mb-12">
+        <div className="text-center mb-12">
           <h2 className="text-2xl md:text-4xl font-black text-[#1E293B] mb-3">
             Quem comprou <span className="text-[#1565FF]">aprovou</span>
           </h2>
           <div className="w-16 h-1.5 bg-[#FFD600] rounded-full mx-auto mb-4" />
           <p className="text-gray-500 text-sm">Resultados reais de quem já usa em sala de aula</p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
-            <motion.div
+            <div
               key={i}
-              {...fadeUp(i * 0.12)}
-              className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-xl transition-shadow"
+              className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-xl transition-shadow duration-200"
             >
               <div className="flex gap-0.5 mb-4">
                 {Array.from({ length: 5 }).map((_, j) => (
                   <Star key={j} className="w-5 h-5 fill-[#FFD600] text-[#FFD600]" />
                 ))}
               </div>
-              <p className="text-gray-700 text-sm leading-relaxed italic mb-6">
-                "{t.text}"
-              </p>
+              <p className="text-gray-700 text-sm leading-relaxed italic mb-6">"{t.text}"</p>
               <div className="flex items-center gap-3">
                 <div
                   className="w-11 h-11 rounded-full flex items-center justify-center text-white font-black text-lg shadow"
@@ -525,7 +441,7 @@ function TestimonialsSection() {
                   <p className="text-gray-400 text-xs">{t.role}</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -533,54 +449,35 @@ function TestimonialsSection() {
   );
 }
 
-/* ─────────────────────────────────────────────
-   10. FAQ
-───────────────────────────────────────────── */
+/* ─── 10. FAQ ─── */
 function FAQSection() {
   const [open, setOpen] = useState<number | null>(null);
-
   const faqs = [
-    {
-      q: "Como recebo o material após a compra?",
-      a: "Assim que o pagamento for confirmado, você recebe um e-mail com o link para download imediato. Em menos de 5 minutos o arquivo já está com você!",
-    },
-    {
-      q: "É físico ou digital?",
-      a: "100% digital em formato PDF. Você faz o download e imprime quantas vezes quiser — sem espera por frete, sem custo extra.",
-    },
-    {
-      q: "Posso imprimir quantas vezes quiser?",
-      a: "Sim! O arquivo é seu para sempre. Imprima para quantas turmas precisar, o ano todo, sem nenhum custo adicional.",
-    },
-    {
-      q: "Serve para reforço escolar?",
-      a: "Com certeza! Funciona perfeitamente para aulas particulares, reforço, cursinhos, escolas e até em casa com os filhos.",
-    },
-    {
-      q: "O pagamento é seguro?",
-      a: "Totalmente! Utilizamos plataformas de pagamento com criptografia de ponta. Seus dados estão 100% protegidos.",
-    },
+    { q: "Como recebo o material após a compra?", a: "Assim que o pagamento for confirmado, você recebe um e-mail com o link para download imediato. Em menos de 5 minutos o arquivo já está com você!" },
+    { q: "É físico ou digital?", a: "100% digital em formato PDF. Você faz o download e imprime quantas vezes quiser — sem espera por frete, sem custo extra." },
+    { q: "Posso imprimir quantas vezes quiser?", a: "Sim! O arquivo é seu para sempre. Imprima para quantas turmas precisar, o ano todo, sem nenhum custo adicional." },
+    { q: "Serve para reforço escolar?", a: "Com certeza! Funciona perfeitamente para aulas particulares, reforço, cursinhos, escolas e até em casa com os filhos." },
+    { q: "O pagamento é seguro?", a: "Totalmente! Utilizamos plataformas de pagamento com criptografia de ponta. Seus dados estão 100% protegidos." },
   ];
 
   return (
     <section className="py-16 px-4 bg-white">
       <div className="max-w-2xl mx-auto">
-        <motion.div {...fadeUp()} className="text-center mb-12">
+        <div className="text-center mb-12">
           <h2 className="text-2xl md:text-4xl font-black text-[#1E293B] mb-3">
             Perguntas <span className="text-[#FF7A00]">Frequentes</span>
           </h2>
           <div className="w-16 h-1.5 bg-[#FF7A00] rounded-full mx-auto" />
-        </motion.div>
+        </div>
 
         <div className="space-y-3">
           {faqs.map((faq, i) => (
-            <motion.div
+            <div
               key={i}
-              {...fadeUp(i * 0.07)}
-              className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:border-[#1565FF]/40 transition-colors"
+              className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:border-[#1565FF]/40 transition-colors duration-200"
             >
               <button
-                className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-blue-50/50 transition-colors"
+                className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-blue-50/50 transition-colors duration-150"
                 onClick={() => setOpen(open === i ? null : i)}
               >
                 <span className="font-bold text-[#1E293B] text-sm md:text-base pr-4">{faq.q}</span>
@@ -594,7 +491,7 @@ function FAQSection() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.28 }}
+                    transition={{ duration: 0.25 }}
                     className="overflow-hidden"
                   >
                     <p className="px-5 pb-5 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-4 bg-white">
@@ -603,50 +500,44 @@ function FAQSection() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div {...fadeUp(0.45)} className="mt-10 max-w-xs mx-auto">
-          <CTAButton label="GARANTIR ACESSO AGORA" variant="green" />
-        </motion.div>
+        <div className="mt-10 max-w-xs mx-auto">
+          <CTAButton label="GARANTIR ACESSO AGORA" size="sm" />
+        </div>
       </div>
     </section>
   );
 }
 
-/* ─────────────────────────────────────────────
-   FINAL CTA BAND
-───────────────────────────────────────────── */
+/* ─── FINAL CTA ─── */
 function FinalCTASection() {
   return (
     <section className="py-14 px-4 section-blue">
       <div className="max-w-2xl mx-auto text-center">
-        <motion.div {...fadeUp()}>
-          <div className="text-5xl mb-4 float-img inline-block">🚀</div>
-          <h2 className="text-2xl md:text-4xl font-black text-white mb-4 leading-tight">
-            Suas aulas nunca mais vão ser as mesmas!
-          </h2>
-          <p className="text-blue-100 text-base md:text-lg mb-8 max-w-md mx-auto">
-            Junte-se a centenas de professores que já revolucionaram suas salas de aula com o Passa ou Repassa.
-          </p>
-          <div className="max-w-sm mx-auto space-y-4">
-            <CTAButton label="GARANTIR ACESSO POR R$ 9,90" variant="orange" size="lg" />
-            <div className="flex flex-wrap justify-center gap-4 text-blue-200/80 text-xs font-medium">
-              <span>🔒 Compra segura</span>
-              <span>📥 Acesso imediato</span>
-              <span>🖨️ Pronto para imprimir</span>
-            </div>
+        <div className="text-5xl mb-4 float-img inline-block">🚀</div>
+        <h2 className="text-2xl md:text-4xl font-black text-white mb-4 leading-tight">
+          Suas aulas nunca mais vão ser as mesmas!
+        </h2>
+        <p className="text-blue-100 text-base md:text-lg mb-8 max-w-md mx-auto">
+          Junte-se a centenas de professores que já revolucionaram suas salas de aula com o Passa ou Repassa.
+        </p>
+        <div className="max-w-sm mx-auto space-y-4">
+          <CTAButton label="GARANTIR ACESSO POR R$ 9,90" size="lg" />
+          <div className="flex flex-wrap justify-center gap-4 text-blue-200/80 text-xs font-medium">
+            <span>🔒 Compra segura</span>
+            <span>📥 Acesso imediato</span>
+            <span>🖨️ Pronto para imprimir</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ─────────────────────────────────────────────
-   RODAPÉ
-───────────────────────────────────────────── */
+/* ─── RODAPÉ ─── */
 function Footer() {
   return (
     <footer className="bg-[#0f172a] text-gray-400 py-10 px-4">
@@ -655,24 +546,20 @@ function Footer() {
           href="https://www.instagram.com/educacaokids_ofc?igsh=ZzZnNW91eHhqenZ6"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2.5 text-white hover:text-pink-400 transition-colors font-bold text-base mb-5 group"
+          className="inline-flex items-center gap-2.5 text-white hover:text-pink-400 transition-colors duration-200 font-bold text-base mb-5 group"
         >
-          <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
           @educacaokids_ofc
         </a>
         <div className="border-t border-gray-800 mt-2 pt-5">
-          <p className="text-gray-600 text-sm">
-            © Educação Kids — Todos os direitos reservados
-          </p>
+          <p className="text-gray-600 text-sm">© Educação Kids — Todos os direitos reservados</p>
         </div>
       </div>
     </footer>
   );
 }
 
-/* ─────────────────────────────────────────────
-   PAGE
-───────────────────────────────────────────── */
+/* ─── PAGE ─── */
 export default function LandingPage() {
   return (
     <div className="w-full overflow-x-hidden">

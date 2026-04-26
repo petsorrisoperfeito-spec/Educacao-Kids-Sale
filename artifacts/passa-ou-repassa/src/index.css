@@ -196,15 +196,6 @@
   transform: translateY(0) scale(0.99);
 }
 
-.btn-cta-orange {
-  background: linear-gradient(135deg, #FF7A00 0%, #e56b00 100%);
-  animation: cta-pulse 2.2s ease-in-out infinite;
-  box-shadow: 0 8px 32px rgba(255,122,0,0.4);
-}
-
-.btn-cta-orange:hover {
-  box-shadow: 0 14px 40px rgba(255,122,0,0.55);
-}
 
 .float-img { animation: float-gentle 4s ease-in-out infinite; }
 .wiggle-img { animation: wiggle 3s ease-in-out infinite; }
