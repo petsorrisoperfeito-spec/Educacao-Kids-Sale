@@ -24,7 +24,7 @@ import cardsSpreadImg from "@assets/1753397812-afzst-r2cf-Designsemnome3_1777219
 import cardsCloseImg from "@assets/1753397802-afzst-r2cf-Designsemnome2_1777219596915.png";
 import cardsYellowImg from "@assets/1753397825-afzst-r2cf-Designsemnome4_1777219596851.png";
 
-const CHECKOUT_LINK = "https://pay.kiwify.com.br/placeholder";
+const CHECKOUT_LINK = "https://pay.wiapy.com/NGUJSoZC7K";
 
 function CTAButton({ label = "GARANTIR ACESSO AGORA", size = "lg" }: { label?: string; size?: "lg" | "sm" }) {
   const sizeClass = size === "lg"
