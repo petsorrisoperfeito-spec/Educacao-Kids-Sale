@@ -571,9 +571,9 @@ function Footer() {
           href="https://www.instagram.com/educacaokids_ofc?igsh=ZzZnNW91eHhqenZ6"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2.5 text-white hover:text-pink-400 transition-colors duration-200 font-bold text-base mb-5 group"
+          className="instagram-footer"
         >
-          <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+          <Instagram className="instagram-icon" />
           @educacaokids_ofc
         </a>
         <div className="border-t border-gray-800 mt-2 pt-5">
