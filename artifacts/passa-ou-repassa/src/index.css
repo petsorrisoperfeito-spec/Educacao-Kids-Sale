@@ -275,6 +275,13 @@
 }
 
 .instagram-icon {
-  width: 24px;
-  height: 24px;
+  width: 50px;
+  height: 50px;
+  color: #ec4899;
+  filter: drop-shadow(0 0 8px #ec4899) drop-shadow(0 0 16px rgba(236,72,153,0.5));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.instagram-footer:hover .instagram-icon {
+  filter: drop-shadow(0 0 12px #ec4899) drop-shadow(0 0 24px rgba(236,72,153,0.7));
 }
