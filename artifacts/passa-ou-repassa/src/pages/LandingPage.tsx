@@ -75,10 +75,15 @@ function CountdownTimer() {
 
 /* ─── 1. URGENCY BAR ─── */
 function UrgencyBar() {
+  const today = new Date().toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
   return (
     <div className="urgency-bar py-3 px-4 text-center sticky top-0 z-50">
       <p className="text-white font-bold text-sm md:text-base tracking-wide">
-        🔥 OFERTA ESPECIAL LIBERADA HOJE — ACESSO IMEDIATO POR APENAS R$ 9,90
+        🔥 OFERTA VÁLIDA APENAS HOJE — {today}
       </p>
     </div>
   );
@@ -322,14 +327,18 @@ function OfferSection() {
             />
           </div>
 
-          <p className="text-gray-400 text-base font-medium mb-1">
-            De <span className="line-through font-bold text-gray-500">R$ 37,90</span> por apenas:
+          <p className="text-gray-500 text-base font-medium mb-2">
+            De{" "}
+            <span className="line-through font-extrabold text-[#EF4444]">
+              R$ 37,90
+            </span>{" "}
+            por apenas:
           </p>
 
-          <div className="flex items-end justify-center gap-1 mb-2">
-            <span className="text-[#1565FF] font-black text-3xl mb-3">R$</span>
+          <div className="price-pulse-wrap flex items-end justify-center gap-1 mb-2">
+            <span className="text-[#22C55E] font-black text-3xl mb-3 drop-shadow-sm">R$</span>
             <span className="price-big">9</span>
-            <span className="text-[#1565FF] font-black text-4xl mb-3">,90</span>
+            <span className="text-[#22C55E] font-black text-4xl mb-3 drop-shadow-sm">,90</span>
           </div>
 
           <div className="inline-block bg-[#22C55E]/10 text-[#16a34a] font-bold text-xs px-4 py-1.5 rounded-full mb-6 border border-[#22C55E]/30">
