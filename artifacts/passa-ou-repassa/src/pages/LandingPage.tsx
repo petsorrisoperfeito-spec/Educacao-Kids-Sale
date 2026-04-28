@@ -120,14 +120,11 @@ function HeroSection() {
             </div>
 
             <h1 className="text-3xl md:text-5xl font-black text-[#1E293B] leading-tight mb-5">
-              🎉 Transforme Suas Aulas em um{" "}
-              <span className="text-[#1565FF]">Verdadeiro Show</span>{" "}
-              de Aprendizagem!
+              👉 Faça Seus Alunos Aprenderem Brincando
             </h1>
 
             <p className="text-gray-600 text-base md:text-lg mb-7 leading-relaxed max-w-lg mx-auto md:mx-0">
-              Material pronto para imprimir e aplicar com turmas do{" "}
-              <strong className="text-[#1565FF]">4º e 5º ano</strong>. Mais participação, diversão e aprendizado em poucos minutos.
+              Passa ou Repassa com 60 perguntas de Matemática, Português, Ciências, Geografia e História.
             </p>
 
             <ul className="space-y-2 mb-8 text-left max-w-sm mx-auto md:mx-0">
