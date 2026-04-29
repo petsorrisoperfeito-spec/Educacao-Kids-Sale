@@ -19,7 +19,7 @@ import {
 
 import heroImg from "@assets/1753401907-afzst-r2cf-Designsemnome5_1777219596784.png";
 import coverImg from "@assets/1753397312-afzst-r2cf-Designsemnome1_1777219596876.png";
-import cardsGridImg from "@assets/file_00000000877c71fb9da415bf28227573_1777470944892.png";
+import cardsGridImg from "@assets/1000013090_1777471685681.png";
 import cardsSpreadImg from "@assets/file_00000000a688720eac7bb030356260c7_1777471119922.png";
 import cardsCloseImg from "@assets/file_00000000955c720ea763afbfe081f220_1777471141951.png";
 
