@@ -19,7 +19,7 @@ import {
 
 import heroImg from "@assets/1753401907-afzst-r2cf-Designsemnome5_1777219596784.png";
 import coverImg from "@assets/1753397312-afzst-r2cf-Designsemnome1_1777219596876.png";
-import cardsGridImg from "@assets/1753397104-afzst-r2cf-Designsemnome_1777219597013.png";
+import cardsGridImg from "@assets/file_00000000877c71fb9da415bf28227573_1777470944892.png";
 import cardsSpreadImg from "@assets/1753397812-afzst-r2cf-Designsemnome3_1777219596895.png";
 import cardsCloseImg from "@assets/1753397802-afzst-r2cf-Designsemnome2_1777219596915.png";
 import cardsYellowImg from "@assets/1753397825-afzst-r2cf-Designsemnome4_1777219596851.png";
