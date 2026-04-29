@@ -20,9 +20,8 @@ import {
 import heroImg from "@assets/1753401907-afzst-r2cf-Designsemnome5_1777219596784.png";
 import coverImg from "@assets/1753397312-afzst-r2cf-Designsemnome1_1777219596876.png";
 import cardsGridImg from "@assets/file_00000000877c71fb9da415bf28227573_1777470944892.png";
-import cardsSpreadImg from "@assets/1753397812-afzst-r2cf-Designsemnome3_1777219596895.png";
-import cardsCloseImg from "@assets/1753397802-afzst-r2cf-Designsemnome2_1777219596915.png";
-import cardsYellowImg from "@assets/1753397825-afzst-r2cf-Designsemnome4_1777219596851.png";
+import cardsSpreadImg from "@assets/file_00000000a688720eac7bb030356260c7_1777471119922.png";
+import cardsCloseImg from "@assets/file_00000000955c720ea763afbfe081f220_1777471141951.png";
 
 const CHECKOUT_LINK = "https://pay.wiapy.com/NGUJSoZC7K";
 
@@ -287,7 +286,6 @@ function GallerySection() {
   const photos = [
     { src: cardsSpreadImg, alt: "Cartas espalhadas do Passa ou Repassa" },
     { src: cardsCloseImg, alt: "Cartas coloridas em leque" },
-    { src: cardsYellowImg, alt: "Cartas com número 2 em destaque" },
   ];
 
   return (
@@ -303,7 +301,7 @@ function GallerySection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
           {photos.map((p, i) => (
             <div key={i} className="card-product">
               <img src={p.src} alt={p.alt} className="w-full object-cover aspect-square" loading="lazy" />
