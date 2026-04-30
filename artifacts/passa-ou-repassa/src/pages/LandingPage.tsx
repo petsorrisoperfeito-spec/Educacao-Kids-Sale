@@ -21,7 +21,7 @@ import heroImg from "@assets/1753401907-afzst-r2cf-Designsemnome5_1777219596784.
 import coverImg from "@assets/1753397312-afzst-r2cf-Designsemnome1_1777219596876.png";
 import cardsGridImg from "@assets/1000013090_1777471685681.png";
 import cardsSpreadImg from "@assets/1000013102_1777471779299.png";
-import cardsCloseImg from "@assets/1000011394_1777478930142.png";
+import cardsCloseImg from "@assets/1000013657_1777557301069.png";
 
 const CHECKOUT_LINK = "https://pay.wiapy.com/NGUJSoZC7K";
 
