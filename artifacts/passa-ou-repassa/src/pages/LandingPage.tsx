@@ -17,7 +17,7 @@ import {
   Lightbulb,
 } from "lucide-react";
 
-import heroImg from "@assets/1753401907-afzst-r2cf-Designsemnome5_1777219596784.png";
+import heroImg from "@assets/file_000000005a2071f5bf3ba8818b050857_1778970739990.jpg";
 import coverImg from "@assets/1753397312-afzst-r2cf-Designsemnome1_1777219596876.png";
 import cardsGridImg from "@assets/1000013090_1777471685681.png";
 import cardsSpreadImg from "@assets/1000013102_1777471779299.png";
@@ -115,23 +115,23 @@ function HeroSection() {
         <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16">
           <div className="flex-1 text-center md:text-left">
             <div className="inline-block bg-[#FFD600] text-[#1E293B] font-extrabold text-xs px-4 py-2 rounded-full mb-5 uppercase tracking-widest shadow badge-animate">
-              🎓 Material Digital para Professores
+              ✝️ Material Digital Cristão
             </div>
 
             <h1 className="text-3xl md:text-5xl font-black text-[#1E293B] leading-tight mb-5">
-              👉 Faça Seus Alunos Aprenderem Brincando
+              +420 Dinâmicas Cristãs Infantis + Bônus Exclusivos
             </h1>
 
             <p className="text-gray-600 text-base md:text-lg mb-7 leading-relaxed max-w-lg mx-auto md:mx-0">
-              Passa ou Repassa com 60 perguntas de Matemática, Português, Ciências, Geografia e História.
+              Atividades bíblicas, criativas e fáceis de aplicar na salinha, EBD, cultinho infantil, culto no lar e programações da igreja.
             </p>
 
             <ul className="space-y-2 mb-8 text-left max-w-sm mx-auto md:mx-0">
               {[
                 "Arquivo digital em PDF — baixe agora",
                 "Acesso imediato após pagamento",
-                "Material 100% pronto para usar",
-                "Ideal para professores e reforço escolar",
+                "+420 dinâmicas prontas para aplicar",
+                "Ideal para líderes, professores de EBD e pastores",
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-[#1E293B] font-medium text-sm md:text-base">
                   <CheckCircle2 className="w-5 h-5 text-[#22C55E] flex-shrink-0" />
@@ -141,7 +141,7 @@ function HeroSection() {
             </ul>
 
             <div className="max-w-sm mx-auto md:mx-0 space-y-3">
-              <CTAButton label="👉 GARANTIR ACESSO POR R$ 9,90" size="lg" />
+              <CTAButton label="👉 GARANTIR ACESSO POR R$ 5,90" size="lg" />
               <p className="flex items-center justify-center md:justify-start gap-2 text-gray-500 text-xs font-medium">
                 <Lock className="w-4 h-4 text-[#22C55E]" />
                 🔒 Compra 100% segura · Liberação imediata
@@ -154,7 +154,7 @@ function HeroSection() {
               <div className="absolute -inset-4 bg-gradient-to-br from-[#FFD600]/30 to-[#1565FF]/20 rounded-3xl blur-2xl" />
               <img
                 src={heroImg}
-                alt="Passa ou Repassa 4º e 5º Ano - Material Digital"
+                alt="+420 Dinâmicas Cristãs Infantis - Material Digital"
                 className="relative rounded-3xl shadow-2xl w-full max-w-sm md:max-w-md object-cover"
                 loading="eager"
               />
@@ -193,12 +193,12 @@ function ProofSection() {
 /* ─── 4. BENEFÍCIOS ─── */
 function BenefitsSection() {
   const benefits = [
-    { icon: <Target className="w-7 h-7" />, title: "Aulas mais divertidas", desc: "Transforme qualquer aula em uma experiência inesquecível.", color: "#1565FF" },
-    { icon: <Users className="w-7 h-7" />, title: "Mais engajamento", desc: "Toda a turma participa ativa e animadamente.", color: "#FF7A00" },
-    { icon: <Clock className="w-7 h-7" />, title: "Economiza horas de preparo", desc: "Material 100% pronto — é só imprimir e aplicar.", color: "#22C55E" },
+    { icon: <Target className="w-7 h-7" />, title: "Cultos mais animados", desc: "Transforme qualquer programação infantil em uma experiência inesquecível.", color: "#1565FF" },
+    { icon: <Users className="w-7 h-7" />, title: "Mais engajamento", desc: "Toda a criançada participa ativa e animadamente.", color: "#FF7A00" },
+    { icon: <Clock className="w-7 h-7" />, title: "Economiza horas de preparo", desc: "Material 100% pronto — é só baixar e aplicar.", color: "#22C55E" },
     { icon: <Printer className="w-7 h-7" />, title: "Pronto para imprimir", desc: "PDF otimizado para qualquer impressora.", color: "#1565FF" },
-    { icon: <Trophy className="w-7 h-7" />, title: "Gamificação inteligente", desc: "Conteúdo pedagógico embalado em competição saudável.", color: "#FF7A00" },
-    { icon: <Lightbulb className="w-7 h-7" />, title: "Aplicação imediata", desc: "Sem complicação — qualquer professor consegue usar.", color: "#22C55E" },
+    { icon: <Trophy className="w-7 h-7" />, title: "+420 dinâmicas bíblicas", desc: "Conteúdo cristão embalado em atividades criativas e divertidas.", color: "#FF7A00" },
+    { icon: <Lightbulb className="w-7 h-7" />, title: "Aplicação imediata", desc: "Sem complicação — qualquer líder ou professor de EBD consegue usar.", color: "#22C55E" },
   ];
 
   return (
@@ -236,8 +236,8 @@ function HowItWorksSection() {
   const steps = [
     { emoji: "🛒", num: "01", title: "Compra realizada", desc: "Você escolhe o método de pagamento e finaliza com segurança." },
     { emoji: "📥", num: "02", title: "Recebe acesso imediato", desc: "Em instantes, o link para download chega no seu e-mail." },
-    { emoji: "🖨️", num: "03", title: "Imprime o material", desc: "Basta imprimir em casa, na escola ou em qualquer gráfica." },
-    { emoji: "🏆", num: "04", title: "Aplica e transforma sua aula", desc: "Divida a turma, comece as perguntas e veja a magia acontecer!" },
+    { emoji: "🖨️", num: "03", title: "Imprime o material", desc: "Basta imprimir em casa, na igreja ou em qualquer gráfica." },
+    { emoji: "🏆", num: "04", title: "Aplica e transforma seu culto", desc: "Aplique na salinha, EBD ou cultinho e veja as crianças se envolverem!" },
   ];
 
   return (
@@ -284,8 +284,8 @@ function HowItWorksSection() {
 /* ─── 6. GALERIA ─── */
 function GallerySection() {
   const photos = [
-    { src: cardsSpreadImg, alt: "Cartas espalhadas do Passa ou Repassa" },
-    { src: cardsCloseImg, alt: "Cartas coloridas em leque" },
+    { src: cardsSpreadImg, alt: "Dinâmicas Cristãs Infantis - material espalhado" },
+    { src: cardsCloseImg, alt: "Dinâmicas Cristãs Infantis - cartas coloridas" },
   ];
 
   return (
@@ -297,7 +297,7 @@ function GallerySection() {
           </h2>
           <div className="w-16 h-1.5 bg-[#FF7A00] rounded-full mx-auto mb-4" />
           <p className="text-gray-500 text-sm max-w-md mx-auto">
-            Material colorido, vibrante e profissional — seus alunos vão se empolgar só de ver!
+            Material colorido, vibrante e profissional — as crianças vão se empolgar só de ver!
           </p>
         </div>
 
@@ -335,7 +335,7 @@ function OfferSection() {
           <div className="flex justify-center mb-4">
             <img
               src={coverImg}
-              alt="Material Passa ou Repassa"
+              alt="+420 Dinâmicas Cristãs Infantis"
               className="w-36 h-36 object-cover rounded-2xl shadow-lg wiggle-img"
               loading="lazy"
             />
@@ -351,12 +351,12 @@ function OfferSection() {
 
           <div className="price-pulse-wrap flex items-end justify-center gap-1 mb-2">
             <span className="text-[#22C55E] font-black text-3xl mb-3 drop-shadow-sm">R$</span>
-            <span className="price-big">9</span>
+            <span className="price-big">5</span>
             <span className="text-[#22C55E] font-black text-4xl mb-3 drop-shadow-sm">,90</span>
           </div>
 
           <div className="inline-block bg-[#22C55E]/10 text-[#16a34a] font-bold text-xs px-4 py-1.5 rounded-full mb-6 border border-[#22C55E]/30">
-            ✅ VOCÊ ECONOMIZA R$ 28,00 AGORA
+            ✅ VOCÊ ECONOMIZA R$ 32,00 AGORA
           </div>
 
           <CountdownTimer />
@@ -407,23 +407,23 @@ function GuaranteeSection() {
 function TestimonialsSection() {
   const testimonials = [
     {
-      text: "Meus alunos amaram a dinâmica! A aula virou uma festinha — todo mundo querendo participar. Nunca vi tanto engajamento em tão pouco tempo.",
+      text: "As crianças amaram as dinâmicas! O cultinho virou uma festinha — todo mundo querendo participar. Nunca vi tanto engajamento em tão pouco tempo.",
       name: "Ana Paula S.",
-      role: "Professora do 5º Ano",
+      role: "Líder de Culto Infantil",
       initial: "A",
       color: "#1565FF",
     },
     {
-      text: "Economizei muito tempo de preparo. O material já vem pronto, organizado e super bonito. Vale muito o investimento — já usei com três turmas!",
+      text: "Economizei muito tempo de preparo. O material já vem pronto, organizado e super bonito. Vale muito o investimento — já usei em várias programações!",
       name: "Carla M.",
-      role: "Pedagoga",
+      role: "Professora de EBD",
       initial: "C",
       color: "#22C55E",
     },
     {
-      text: "Material lindo e super fácil de aplicar. Imprimi, dividi a turma e em cinco minutos já estava rolando a gincana. Recomendo demais!",
+      text: "Material lindo e super fácil de aplicar. Imprimi, reuni a criançada e em cinco minutos já estava rolando a atividade. Recomendo demais!",
       name: "Marcos A.",
-      role: "Professor de Reforço",
+      role: "Pastor de Crianças",
       initial: "M",
       color: "#FF7A00",
     },
@@ -478,8 +478,8 @@ function FAQSection() {
   const faqs = [
     { q: "Como recebo o material após a compra?", a: "Assim que o pagamento for confirmado, você recebe um e-mail com o link para download imediato. Em menos de 5 minutos o arquivo já está com você!" },
     { q: "É físico ou digital?", a: "100% digital em formato PDF. Você faz o download e imprime quantas vezes quiser — sem espera por frete, sem custo extra." },
-    { q: "Posso imprimir quantas vezes quiser?", a: "Sim! O arquivo é seu para sempre. Imprima para quantas turmas precisar, o ano todo, sem nenhum custo adicional." },
-    { q: "Serve para reforço escolar?", a: "Com certeza! Funciona perfeitamente para aulas particulares, reforço, cursinhos, escolas e até em casa com os filhos." },
+    { q: "Posso imprimir quantas vezes quiser?", a: "Sim! O arquivo é seu para sempre. Imprima para quantos grupos precisar, o ano todo, sem nenhum custo adicional." },
+    { q: "Serve para qual faixa etária?", a: "O material foi pensado para crianças, ideal para salinha, EBD, cultinho infantil, culto no lar e qualquer programação da igreja." },
     { q: "O pagamento é seguro?", a: "Totalmente! Utilizamos plataformas de pagamento com criptografia de ponta. Seus dados estão 100% protegidos." },
   ];
 
@@ -539,13 +539,13 @@ function FinalCTASection() {
       <div className="max-w-2xl mx-auto text-center">
         <div className="text-5xl mb-4 float-img inline-block">🚀</div>
         <h2 className="text-2xl md:text-4xl font-black text-white mb-4 leading-tight">
-          Suas aulas nunca mais vão ser as mesmas!
+          Seus cultos infantis nunca mais vão ser os mesmos!
         </h2>
         <p className="text-blue-100 text-base md:text-lg mb-8 max-w-md mx-auto">
-          Junte-se a centenas de professores que já revolucionaram suas salas de aula com o Passa ou Repassa.
+          Junte-se a centenas de líderes e professores de EBD que já transformaram suas programações com as Dinâmicas Cristãs Infantis.
         </p>
         <div className="max-w-sm mx-auto space-y-4">
-          <CTAButton label="GARANTIR ACESSO POR R$ 9,90" size="lg" />
+          <CTAButton label="GARANTIR ACESSO POR R$ 5,90" size="lg" />
           <div className="flex flex-wrap justify-center gap-4 text-blue-200/80 text-xs font-medium">
             <span>🔒 Compra segura</span>
             <span>📥 Acesso imediato</span>
