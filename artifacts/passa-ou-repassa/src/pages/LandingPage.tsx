@@ -17,7 +17,7 @@ import {
   Lightbulb,
 } from "lucide-react";
 
-import heroImg from "@assets/file_000000005a2071f5bf3ba8818b050857_1778970739990.jpg";
+import heroImg from "@assets/file_000000005a2071f5bf3ba8818b050857_(1)_1778971665131.jpg";
 import coverImg from "@assets/1753397312-afzst-r2cf-Designsemnome1_1777219596876.png";
 import cardsGridImg from "@assets/1000013090_1777471685681.png";
 import cardsSpreadImg from "@assets/1000013102_1777471779299.png";
