@@ -155,7 +155,7 @@ function HeroSection() {
               <img
                 src={heroImg}
                 alt="+420 Dinâmicas Cristãs Infantis - Material Digital"
-                className="relative rounded-3xl shadow-2xl w-full max-w-sm md:max-w-md object-cover"
+                className="relative rounded-3xl shadow-2xl w-full max-w-[200px] sm:max-w-sm md:max-w-md object-cover"
                 loading="eager"
               />
             </div>
