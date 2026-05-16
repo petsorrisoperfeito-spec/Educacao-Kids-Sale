@@ -22,6 +22,7 @@ import coverImg from "@assets/1753397312-afzst-r2cf-Designsemnome1_1777219596876
 import cardsGridImg from "@assets/1000013090_1777471685681.png";
 import cardsSpreadImg from "@assets/1000013102_1777471779299.png";
 import cardsCloseImg from "@assets/1000013657_1777557301069.png";
+import proofCoverImg from "@assets/1000020636_1778973992567.png";
 import sample1Img from "@assets/Screenshot_20260516_200447_Drive~2_1778973446866.jpg";
 import sample2Img from "@assets/Screenshot_20260516_200605_Drive~2_1778973447120.jpg";
 import sample3Img from "@assets/Screenshot_20260516_200644_Drive~2_1778973447169.jpg";
@@ -172,7 +173,7 @@ function HeroSection() {
 /* ─── 3. PROVA VISUAL ─── */
 function ProofSection() {
   const samples = [
-    { src: sample1Img, alt: "Bônus: Meu Primeiro Devocional", label: "🎁 Bônus Exclusivo" },
+    { src: sample1Img, alt: "Plano Devocional para Crianças", label: "📖 Plano Devocional para Crianças" },
     { src: sample2Img, alt: "Página para colorir bíblica", label: "🎨 Páginas para Colorir" },
     { src: sample3Img, alt: "Dinâmica estruturada com versículo", label: "📖 Dinâmica Completa" },
   ];
@@ -192,7 +193,7 @@ function ProofSection() {
             <div className="absolute -inset-3 bg-gradient-to-br from-[#FFD600]/30 to-[#1565FF]/20 rounded-3xl blur-xl" />
             <div className="card-product relative p-3 max-w-[260px] w-full transform rotate-1 shadow-2xl">
               <img
-                src={heroImg}
+                src={proofCoverImg}
                 alt="+420 Dinâmicas Cristãs Infantis - Capa do E-book"
                 className="w-full object-cover rounded-2xl"
                 loading="lazy"
