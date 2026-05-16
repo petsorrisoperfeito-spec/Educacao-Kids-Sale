@@ -110,9 +110,9 @@ function UrgencyBar() {
 /* ─── 2. HERO ─── */
 function HeroSection() {
   return (
-    <section className="hero-bg pt-12 pb-16 px-4">
+    <section className="hero-bg pt-6 pb-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16">
+        <div className="flex flex-col md:flex-row items-center gap-5 md:gap-16">
           <div className="flex-1 text-center md:text-left">
             <div className="inline-block bg-[#FFD600] text-[#1E293B] font-extrabold text-xs px-4 py-2 rounded-full mb-5 uppercase tracking-widest shadow badge-animate">
               ✝️ Material Digital Cristão
@@ -150,12 +150,12 @@ function HeroSection() {
           </div>
 
           <div className="flex-1 flex justify-center">
-            <div className="float-img relative">
+            <div className="float-img relative mx-auto">
               <div className="absolute -inset-4 bg-gradient-to-br from-[#FFD600]/30 to-[#1565FF]/20 rounded-3xl blur-2xl" />
               <img
                 src={heroImg}
                 alt="+420 Dinâmicas Cristãs Infantis - Material Digital"
-                className="relative rounded-3xl shadow-2xl w-full max-w-sm md:max-w-md object-cover"
+                className="relative rounded-3xl shadow-2xl object-contain w-full max-w-[200px] md:max-w-md"
                 loading="eager"
               />
             </div>
