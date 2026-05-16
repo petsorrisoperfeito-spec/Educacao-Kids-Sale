@@ -25,7 +25,7 @@ import cardsCloseImg from "@assets/1000013657_1777557301069.png";
 import proofCoverImg from "@assets/1000020636_1778973992567.png";
 import sample1Img from "@assets/Screenshot_20260516_200447_Drive~2_1778973446866.jpg";
 import sample2Img from "@assets/Screenshot_20260516_200605_Drive~2_1778973447120.jpg";
-import sample3Img from "@assets/Screenshot_20260516_200644_Drive~2_1778973447169.jpg";
+import sample3Img from "@assets/1000020649_1778974934274.png";
 
 const CHECKOUT_LINK = "https://pay.wiapy.com/NGUJSoZC7K";
 
