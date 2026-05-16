@@ -22,6 +22,9 @@ import coverImg from "@assets/1753397312-afzst-r2cf-Designsemnome1_1777219596876
 import cardsGridImg from "@assets/1000013090_1777471685681.png";
 import cardsSpreadImg from "@assets/1000013102_1777471779299.png";
 import cardsCloseImg from "@assets/1000013657_1777557301069.png";
+import sample1Img from "@assets/Screenshot_20260516_200447_Drive~2_1778973446866.jpg";
+import sample2Img from "@assets/Screenshot_20260516_200605_Drive~2_1778973447120.jpg";
+import sample3Img from "@assets/Screenshot_20260516_200644_Drive~2_1778973447169.jpg";
 
 const CHECKOUT_LINK = "https://pay.wiapy.com/NGUJSoZC7K";
 
@@ -168,6 +171,12 @@ function HeroSection() {
 
 /* ─── 3. PROVA VISUAL ─── */
 function ProofSection() {
+  const samples = [
+    { src: sample1Img, alt: "Bônus: Meu Primeiro Devocional", label: "🎁 Bônus Exclusivo" },
+    { src: sample2Img, alt: "Página para colorir bíblica", label: "🎨 Páginas para Colorir" },
+    { src: sample3Img, alt: "Dinâmica estruturada com versículo", label: "📖 Dinâmica Completa" },
+  ];
+
   return (
     <section className="py-14 px-4 bg-[#F5F7FA]">
       <div className="max-w-5xl mx-auto">
@@ -177,13 +186,33 @@ function ProofSection() {
           </h2>
           <div className="w-16 h-1.5 bg-[#FFD600] rounded-full mx-auto" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-          <div className="card-product">
-            <img src={coverImg} alt="Capa do material Passa ou Repassa" className="w-full object-cover" loading="lazy" />
+
+        <div className="flex justify-center mb-10">
+          <div className="relative">
+            <div className="absolute -inset-3 bg-gradient-to-br from-[#FFD600]/30 to-[#1565FF]/20 rounded-3xl blur-xl" />
+            <div className="card-product relative p-3 max-w-[260px] w-full transform rotate-1 shadow-2xl">
+              <img
+                src={heroImg}
+                alt="+420 Dinâmicas Cristãs Infantis - Capa do E-book"
+                className="w-full object-cover rounded-2xl"
+                loading="lazy"
+              />
+            </div>
+            <div className="absolute -top-3 -right-3 bg-[#FFD600] text-[#1E293B] text-xs font-black px-3 py-1 rounded-full shadow-md rotate-6">
+              ✝️ +420 dinâmicas
+            </div>
           </div>
-          <div className="card-product">
-            <img src={cardsGridImg} alt="Cards de perguntas do Passa ou Repassa" className="w-full object-cover" loading="lazy" />
-          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          {samples.map((s, i) => (
+            <div key={i} className="card-product overflow-hidden">
+              <div className="bg-[#1565FF]/5 px-3 py-2 text-center border-b border-gray-100">
+                <span className="text-xs font-bold text-[#1565FF]">{s.label}</span>
+              </div>
+              <img src={s.src} alt={s.alt} className="w-full object-cover" loading="lazy" />
+            </div>
+          ))}
         </div>
       </div>
     </section>
