@@ -26,6 +26,9 @@ import proofCoverImg from "@assets/1000020636_1778973992567.png";
 import sample1Img from "@assets/Screenshot_20260516_200447_Drive~2_1778973446866.jpg";
 import sample2Img from "@assets/Screenshot_20260516_200605_Drive~2_1778973447120.jpg";
 import sample3Img from "@assets/1000020649_1778974934274.png";
+import bonus1Img from "@assets/1000020658_1778977029361.png";
+import bonus2Img from "@assets/1000020655_1778977029525.png";
+import bonus3Img from "@assets/1000020656_1778977029563.png";
 
 const CHECKOUT_LINK = "https://pay.wiapy.com/NGUJSoZC7K";
 
@@ -311,30 +314,77 @@ function HowItWorksSection() {
   );
 }
 
-/* ─── 6. GALERIA ─── */
-function GallerySection() {
-  const photos = [
-    { src: cardsSpreadImg, alt: "Dinâmicas Cristãs Infantis - material espalhado" },
-    { src: cardsCloseImg, alt: "Dinâmicas Cristãs Infantis - cartas coloridas" },
+/* ─── 6. BÔNUS ─── */
+function BonusSection() {
+  const bonuses = [
+    {
+      img: bonus1Img,
+      num: "01",
+      title: "Potinho de Oração",
+      desc: "Atividade criativa para incentivar crianças a criarem o hábito da oração diariamente.",
+      oldPrice: "R$ 19,90",
+      color: "#ec4899",
+    },
+    {
+      img: bonus2Img,
+      num: "02",
+      title: "Plano Devocional para Crianças",
+      desc: "Plano divertido e simples para aproximar as crianças de Deus todos os dias.",
+      oldPrice: "R$ 29,90",
+      color: "#1565FF",
+    },
+    {
+      img: bonus3Img,
+      num: "03",
+      title: "Desenhos Bíblicos para Colorir",
+      desc: "Desenhos educativos cristãos prontos para imprimir e colorir.",
+      oldPrice: "R$ 24,90",
+      color: "#FF7A00",
+    },
   ];
 
   return (
     <section className="py-16 px-4 bg-white">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-3">
-            Veja como é <span className="text-[#FF7A00]">lindo e completo</span>
+        <div className="text-center mb-12">
+          <div className="inline-block bg-[#FFD600] text-[#1E293B] font-black text-xs px-5 py-2 rounded-full mb-4 uppercase tracking-widest shadow badge-animate">
+            ✨ Exclusivo para você
+          </div>
+          <h2 className="text-2xl md:text-4xl font-black text-[#1E293B] mb-3">
+            🎁 BÔNUS EXCLUSIVOS
           </h2>
-          <div className="w-16 h-1.5 bg-[#FF7A00] rounded-full mx-auto mb-4" />
-          <p className="text-gray-500 text-sm max-w-md mx-auto">
-            Material colorido, vibrante e profissional — as crianças vão se empolgar só de ver!
+          <div className="w-16 h-1.5 bg-[#FFD600] rounded-full mx-auto mb-4" />
+          <p className="text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
+            Além das dinâmicas cristãs infantis, você também recebe materiais bônus especiais{" "}
+            <strong className="text-[#1E293B]">totalmente grátis!</strong>
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
-          {photos.map((p, i) => (
-            <div key={i} className="card-product">
-              <img src={p.src} alt={p.alt} className="w-full object-cover aspect-square" loading="lazy" />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          {bonuses.map((b, i) => (
+            <div key={i} className="card-product p-5 flex flex-col items-center text-center">
+              <div className="relative mb-4 w-full">
+                <img
+                  src={b.img}
+                  alt={b.title}
+                  className="w-full object-cover rounded-2xl aspect-square"
+                  loading="lazy"
+                />
+                <div
+                  className="absolute -top-3 -left-3 w-9 h-9 rounded-full flex items-center justify-center text-white font-black text-sm shadow-lg"
+                  style={{ background: b.color }}
+                >
+                  {b.num}
+                </div>
+              </div>
+              <h3 className="font-black text-[#1E293B] text-base mb-2">{b.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{b.desc}</p>
+              <div className="mt-auto">
+                <p className="text-gray-400 text-sm mb-1">
+                  De <span className="line-through text-[#EF4444] font-bold">{b.oldPrice}</span>
+                </p>
+                <p className="gratis-pulse text-2xl font-black text-[#22C55E]">GRÁTIS 🎉</p>
+              </div>
             </div>
           ))}
         </div>
@@ -347,59 +397,98 @@ function GallerySection() {
   );
 }
 
-/* ─── 7. OFERTA ─── */
-function OfferSection() {
+/* ─── 7. PLANOS ─── */
+function PlansSection() {
+  const basicItems = [
+    "100 Dinâmicas Cristãs Infantis",
+    "Acesso imediato",
+    "Arquivo em PDF",
+    "Uso em igreja e EBD",
+  ];
+  const completeItems = [
+    "+420 Dinâmicas Cristãs Infantis",
+    "Potinho de Oração",
+    "Plano Devocional para Crianças",
+    "Desenhos Bíblicos para Colorir",
+    "Jogos Bíblicos Educativos",
+    "Atividades Cristãs para Memorização",
+    "Material Premium para EBD",
+    "Atualizações futuras",
+    "Acesso imediato",
+  ];
+
   return (
     <section id="oferta" className="py-16 px-4 bg-gradient-to-br from-[#fffde7] to-[#fff8e1]">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-8">
-          <div className="inline-block bg-[#dc2626] text-white font-black text-sm px-5 py-2 rounded-full mb-6 uppercase tracking-widest badge-animate shadow-lg">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-10">
+          <div className="inline-block bg-[#dc2626] text-white font-black text-sm px-5 py-2 rounded-full mb-4 uppercase tracking-widest badge-animate shadow-lg">
             🔥 OFERTA ESPECIAL DE HOJE
           </div>
           <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-2">
-            Garanta agora pelo melhor preço
+            Escolha o melhor plano para você
           </h2>
         </div>
 
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border-2 border-[#FFD600] text-center">
-          <div className="flex justify-center mb-4">
-            <img
-              src={coverImg}
-              alt="+420 Dinâmicas Cristãs Infantis"
-              className="w-36 h-36 object-cover rounded-2xl shadow-lg wiggle-img"
-              loading="lazy"
-            />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+
+          {/* ── PLANO BÁSICO ── */}
+          <div className="bg-white rounded-3xl p-7 shadow-lg border-2 border-gray-200 text-center flex flex-col">
+            <h3 className="text-xl font-black text-[#1E293B] mb-1">Plano Básico</h3>
+            <div className="flex items-end justify-center gap-1 my-4">
+              <span className="text-[#22C55E] font-black text-2xl mb-1">R$</span>
+              <span className="text-[#22C55E] font-black text-5xl leading-none">5</span>
+              <span className="text-[#22C55E] font-black text-2xl mb-1">,90</span>
+            </div>
+            <ul className="space-y-2.5 mb-7 text-left">
+              {basicItems.map((item, i) => (
+                <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
+                  <CheckCircle2 className="w-5 h-5 text-[#22C55E] flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-auto">
+              <a href={CHECKOUT_LINK} target="_blank" rel="noopener noreferrer" className="btn-cta w-full block text-sm py-4">
+                QUERO O PLANO BÁSICO
+              </a>
+            </div>
           </div>
 
-          <p className="text-gray-500 text-base font-medium mb-2">
-            De{" "}
-            <span className="line-through font-extrabold text-[#EF4444]">
-              R$ 37,90
-            </span>{" "}
-            por apenas:
-          </p>
-
-          <div className="price-pulse-wrap flex items-end justify-center gap-1 mb-2">
-            <span className="text-[#22C55E] font-black text-3xl mb-3 drop-shadow-sm">R$</span>
-            <span className="price-big">5</span>
-            <span className="text-[#22C55E] font-black text-4xl mb-3 drop-shadow-sm">,90</span>
+          {/* ── PLANO COMPLETO ── */}
+          <div className="plan-featured bg-white rounded-3xl p-7 shadow-2xl border-[3px] border-[#FFD600] text-center flex flex-col relative">
+            <div className="absolute -top-5 left-1/2 -translate-x-1/2">
+              <div className="bg-[#FFD600] text-[#1E293B] font-black text-xs px-5 py-1.5 rounded-full shadow-md uppercase tracking-widest whitespace-nowrap">
+                ⭐ MAIS ESCOLHIDO
+              </div>
+            </div>
+            <div className="mt-4">
+              <h3 className="text-xl font-black text-[#1E293B] mb-1">Plano Completo</h3>
+              <div className="flex items-end justify-center gap-1 my-4">
+                <span className="text-[#22C55E] font-black text-2xl mb-1">R$</span>
+                <span className="text-[#22C55E] font-black text-5xl leading-none">19</span>
+                <span className="text-[#22C55E] font-black text-2xl mb-1">,90</span>
+              </div>
+            </div>
+            <ul className="space-y-2.5 mb-5 text-left">
+              {completeItems.map((item, i) => (
+                <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
+                  <CheckCircle2 className="w-5 h-5 text-[#22C55E] flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <CountdownTimer />
+            <div className="mt-4">
+              <a href={CHECKOUT_LINK} target="_blank" rel="noopener noreferrer" className="btn-cta w-full block text-base py-5">
+                QUERO O PLANO COMPLETO
+              </a>
+            </div>
+            <div className="mt-4 flex flex-wrap justify-center gap-3 text-xs text-gray-500 font-medium">
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Pagamento seguro</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Liberação imediata</span>
+            </div>
           </div>
 
-          <div className="inline-block bg-[#22C55E]/10 text-[#16a34a] font-bold text-xs px-4 py-1.5 rounded-full mb-6 border border-[#22C55E]/30">
-            ✅ VOCÊ ECONOMIZA R$ 32,00 AGORA
-          </div>
-
-          <CountdownTimer />
-
-          <div className="mt-6 max-w-xs mx-auto">
-            <CTAButton label="GARANTIR ACESSO AGORA" size="lg" />
-          </div>
-
-          <div className="mt-5 flex flex-wrap justify-center gap-4 text-xs text-gray-500 font-medium">
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Pagamento seguro</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Liberação imediata</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Promoção por tempo limitado</span>
-          </div>
         </div>
       </div>
     </section>
@@ -618,8 +707,8 @@ export default function LandingPage() {
       <ProofSection />
       <BenefitsSection />
       <HowItWorksSection />
-      <GallerySection />
-      <OfferSection />
+      <BonusSection />
+      <PlansSection />
       <GuaranteeSection />
       <TestimonialsSection />
       <FAQSection />

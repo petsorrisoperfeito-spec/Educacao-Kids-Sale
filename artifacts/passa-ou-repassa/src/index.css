@@ -285,3 +285,22 @@
 .instagram-footer:hover .instagram-icon {
   filter: drop-shadow(0 0 12px #ec4899) drop-shadow(0 0 24px rgba(236,72,153,0.7));
 }
+
+@keyframes pulse-green {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.12); }
+}
+
+.gratis-pulse {
+  animation: pulse-green 1.4s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes glow-gold {
+  0%, 100% { box-shadow: 0 0 20px rgba(255,214,0,0.45), 0 20px 60px rgba(0,0,0,0.14); }
+  50%       { box-shadow: 0 0 44px rgba(255,214,0,0.75), 0 20px 60px rgba(0,0,0,0.14); }
+}
+
+.plan-featured {
+  animation: float-gentle 4s ease-in-out infinite, glow-gold 2.5s ease-in-out infinite;
+}
