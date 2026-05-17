@@ -306,18 +306,16 @@
 }
 
 @keyframes price-pulse-complete {
-  0%, 100% {
-    transform: scale(1);
-    text-shadow: 0 0 0px rgba(34,197,94,0);
-  }
-  50% {
-    transform: scale(1.07);
-    text-shadow: 0 0 18px rgba(34,197,94,0.55), 0 0 36px rgba(34,197,94,0.25);
-  }
+  0%   { transform: scale(1) translateZ(0); }
+  50%  { transform: scale(1.05) translateZ(0); }
+  100% { transform: scale(1) translateZ(0); }
 }
 
 .price-pulse-complete {
-  animation: price-pulse-complete 2s ease-in-out infinite;
+  animation: price-pulse-complete 1.5s ease-in-out infinite;
+  will-change: transform;
   display: inline-flex;
   align-items: flex-end;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
