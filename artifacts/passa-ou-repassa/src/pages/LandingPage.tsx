@@ -148,7 +148,7 @@ function HeroSection() {
             </ul>
 
             <div className="max-w-sm mx-auto md:mx-0 space-y-3">
-              <CTAButton label="👉 GARANTIR ACESSO POR R$ 5,90" size="lg" />
+              <ScrollCTAButton label="👉 GARANTIR ACESSO POR R$ 5,90" size="lg" />
               <p className="flex items-center justify-center md:justify-start gap-2 text-gray-500 text-xs font-medium">
                 <Lock className="w-4 h-4 text-[#22C55E]" />
                 🔒 Compra 100% segura · Liberação imediata
@@ -411,7 +411,6 @@ function PlansSection() {
     "Plano Devocional para Crianças",
     "Desenhos Bíblicos para Colorir",
     "Jogos Bíblicos Educativos",
-    "Atividades Cristãs para Memorização",
     "Material Premium para EBD",
     "Atualizações futuras",
     "Acesso imediato",
@@ -463,7 +462,7 @@ function PlansSection() {
             </div>
             <div className="mt-4">
               <h3 className="text-xl font-black text-[#1E293B] mb-1">Plano Completo</h3>
-              <div className="flex items-end justify-center gap-1 my-4">
+              <div className="price-pulse-complete gap-1 my-4 justify-center">
                 <span className="text-[#22C55E] font-black text-2xl mb-1">R$</span>
                 <span className="text-[#22C55E] font-black text-5xl leading-none">19</span>
                 <span className="text-[#22C55E] font-black text-2xl mb-1">,90</span>
@@ -533,7 +532,7 @@ function TestimonialsSection() {
       color: "#1565FF",
     },
     {
-      text: "Economizei muito tempo de preparo. O material já vem pronto, organizado e super bonito. Vale muito o investimento — já usei em várias programações!",
+      text: "Economizei muito tempo de preparo. O material já vem pronto, organizado e super bonito. Vale muito o investimento — já usei em vários encontros!",
       name: "Carla M.",
       role: "Professora de EBD",
       initial: "C",
@@ -664,7 +663,7 @@ function FinalCTASection() {
           Junte-se a centenas de líderes e professores de EBD que já transformaram suas programações com as Dinâmicas Cristãs Infantis.
         </p>
         <div className="max-w-sm mx-auto space-y-4">
-          <CTAButton label="GARANTIR ACESSO POR R$ 5,90" size="lg" />
+          <ScrollCTAButton label="GARANTIR ACESSO POR R$ 5,90" size="lg" />
           <div className="flex flex-wrap justify-center gap-4 text-blue-200/80 text-xs font-medium">
             <span>🔒 Compra segura</span>
             <span>📥 Acesso imediato</span>
