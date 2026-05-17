@@ -405,15 +405,17 @@ function PlansSection() {
     "Arquivo em PDF",
     "Uso em igreja e EBD",
   ];
-  const completeItems = [
+  const completeMain = [
     "+420 Dinâmicas Cristãs Infantis",
-    "Potinho de Oração",
-    "Plano Devocional para Crianças",
-    "Desenhos Bíblicos para Colorir",
     "Jogos Bíblicos Educativos",
     "Material Premium para EBD",
     "Atualizações futuras",
     "Acesso imediato",
+  ];
+  const completeBonuses = [
+    "Potinho de Oração",
+    "Plano Devocional para Crianças",
+    "Desenhos Bíblicos para Colorir",
   ];
 
   return (
@@ -462,20 +464,39 @@ function PlansSection() {
             </div>
             <div className="mt-4">
               <h3 className="text-xl font-black text-[#1E293B] mb-1">Plano Completo</h3>
-              <div className="price-pulse-complete gap-1 my-4 justify-center">
+              <p className="text-sm text-gray-400 font-medium mb-1">
+                De <span className="line-through text-[#EF4444] font-bold">R$ 97,90</span>
+              </p>
+              <div className="price-pulse-complete gap-1 mb-4 justify-center">
                 <span className="text-[#22C55E] font-black text-2xl mb-1">R$</span>
                 <span className="text-[#22C55E] font-black text-5xl leading-none">19</span>
                 <span className="text-[#22C55E] font-black text-2xl mb-1">,90</span>
               </div>
             </div>
-            <ul className="space-y-2.5 mb-5 text-left">
-              {completeItems.map((item, i) => (
+
+            <ul className="space-y-2.5 mb-4 text-left">
+              {completeMain.map((item, i) => (
                 <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
                   <CheckCircle2 className="w-5 h-5 text-[#22C55E] flex-shrink-0" />
                   {item}
                 </li>
               ))}
             </ul>
+
+            <div className="rounded-2xl border border-[#22C55E]/30 bg-[#f0fdf4] px-4 py-3 mb-5">
+              <p className="text-[#15803d] font-black text-xs uppercase tracking-widest mb-2.5 flex items-center gap-1.5">
+                🎁 <span>Bônus Grátis inclusos</span>
+              </p>
+              <ul className="space-y-2">
+                {completeBonuses.map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-[#15803d] text-sm font-semibold">
+                    <span className="text-base leading-none">🎁</span>
+                    <span>{item}</span>
+                    <span className="ml-auto text-[10px] font-black bg-[#22C55E] text-white px-2 py-0.5 rounded-full whitespace-nowrap">GRÁTIS</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <CountdownTimer />
             <div className="mt-4">
               <a href={CHECKOUT_LINK} target="_blank" rel="noopener noreferrer" className="btn-cta w-full block text-base py-5">
