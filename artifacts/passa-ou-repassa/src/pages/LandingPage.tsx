@@ -411,6 +411,7 @@ function PlansSection() {
     "Material Premium para EBD",
     "Atualizações futuras",
     "Acesso imediato",
+    "__whatsapp__",
   ];
   const completeBonuses = [
     "Potinho de Oração",
@@ -475,12 +476,22 @@ function PlansSection() {
             </div>
 
             <ul className="space-y-2.5 mb-4 text-left">
-              {completeMain.map((item, i) => (
-                <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
-                  <CheckCircle2 className="w-5 h-5 text-[#22C55E] flex-shrink-0" />
-                  {item}
-                </li>
-              ))}
+              {completeMain.map((item, i) =>
+                item === "__whatsapp__" ? (
+                  <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
+                    <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="16" cy="16" r="16" fill="#25D366"/>
+                      <path d="M23.5 8.5A10.47 10.47 0 0 0 16 5.5C10.2 5.5 5.5 10.2 5.5 16c0 1.85.49 3.65 1.41 5.23L5.5 26.5l5.41-1.41A10.46 10.46 0 0 0 16 26.5c5.8 0 10.5-4.7 10.5-10.5 0-2.8-1.09-5.43-3-7.5zM16 24.77a8.73 8.73 0 0 1-4.45-1.22l-.32-.19-3.21.84.86-3.13-.21-.33A8.73 8.73 0 0 1 7.23 16c0-4.84 3.93-8.77 8.77-8.77A8.77 8.77 0 0 1 24.77 16c0 4.84-3.93 8.77-8.77 8.77zm4.81-6.57c-.26-.13-1.55-.77-1.79-.85-.24-.09-.41-.13-.58.13-.17.26-.66.85-.81 1.02-.15.17-.3.19-.56.06-.26-.13-1.1-.41-2.1-1.3-.78-.69-1.3-1.55-1.45-1.81-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.58-1.4-.8-1.92-.21-.5-.43-.43-.58-.44h-.5c-.17 0-.45.06-.69.32-.24.26-.9.88-.9 2.14s.92 2.49 1.05 2.66c.13.17 1.81 2.77 4.38 3.88.61.26 1.09.42 1.46.54.61.19 1.17.16 1.61.1.49-.07 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.06-.11-.24-.17-.5-.3z" fill="white"/>
+                    </svg>
+                    Entrega pelo <strong className="ml-1">WhatsApp</strong>
+                  </li>
+                ) : (
+                  <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
+                    <CheckCircle2 className="w-5 h-5 text-[#22C55E] flex-shrink-0" />
+                    {item}
+                  </li>
+                )
+              )}
             </ul>
 
             <div className="rounded-2xl border border-[#22C55E]/30 bg-[#f0fdf4] px-4 py-3 mb-5">
