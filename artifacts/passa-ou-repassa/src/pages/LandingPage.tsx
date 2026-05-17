@@ -31,6 +31,9 @@ import bonus2Img from "@assets/1000020655_1778977029525.png";
 import bonus3Img from "@assets/1000020656_1778977029563.png";
 
 const CHECKOUT_LINK = "https://pay.wiapy.com/NGUJSoZC7K";
+const CHECKOUT_LINK_BASIC    = "https://pay.wiapy.com/ooK02hM0CH";
+const CHECKOUT_LINK_COMPLETE = "https://pay.wiapy.com/1M0u61l7Ug";
+const CHECKOUT_LINK_UPSELL   = "https://pay.wiapy.com/_-em4QtoS3";
 
 function CTAButton({ label = "GARANTIR ACESSO AGORA", size = "lg" }: { label?: string; size?: "lg" | "sm" }) {
   const sizeClass = size === "lg"
@@ -397,8 +400,99 @@ function BonusSection() {
   );
 }
 
+/* ─── UPSELL MODAL ─── */
+function UpsellModal({ onClose }: { onClose: () => void }) {
+  const goBasic = () => {
+    onClose();
+    window.open(CHECKOUT_LINK_BASIC, "_blank", "noopener,noreferrer");
+  };
+  const goUpsell = () => {
+    onClose();
+    window.open(CHECKOUT_LINK_UPSELL, "_blank", "noopener,noreferrer");
+  };
+
+  const upsellItems = [
+    "420+ Dinâmicas Cristãs Infantis",
+    "Jogos Bíblicos Educativos",
+    "Material Premium para EBD",
+    "Atualizações futuras",
+    "Recebimento imediato",
+  ];
+  const upsellBonuses = [
+    "Potinho da Oração",
+    "Desenhos Bíblicos para Colorir",
+    "Plano Devocional para Crianças",
+  ];
+
+  return (
+    <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) goBasic(); }}>
+      <div className="modal-box">
+        <button className="modal-close" onClick={goBasic} aria-label="Fechar">✕</button>
+
+        <div className="text-center mb-4">
+          <div className="inline-block bg-[#dc2626] text-white font-black text-xs px-4 py-1.5 rounded-full uppercase tracking-widest mb-3 shadow">
+            ⚡ ESPERE! OFERTA ESPECIAL
+          </div>
+          <p className="text-[#1E293B] font-bold text-base leading-snug">
+            Antes de continuar, faça o upgrade para o Plano Completo com{" "}
+            <span className="text-[#dc2626]">desconto exclusivo de hoje</span>
+          </p>
+        </div>
+
+        <div className="text-center mb-4">
+          <p className="text-gray-400 text-sm mb-1">
+            De <span className="line-through text-[#EF4444] font-bold">R$ 19,90</span>
+          </p>
+          <div className="flex items-end justify-center gap-1">
+            <span className="text-[#22C55E] font-black text-2xl mb-1">R$</span>
+            <span className="text-[#22C55E] font-black text-5xl leading-none">12</span>
+            <span className="text-[#22C55E] font-black text-2xl mb-1">,90</span>
+          </div>
+          <p className="text-gray-500 text-xs mt-1 font-medium">Acesso imediato + bônus exclusivos</p>
+        </div>
+
+        <ul className="space-y-2 mb-4">
+          {upsellItems.map((item, i) => (
+            <li key={i} className="flex items-center gap-2 text-[#1E293B] text-sm font-medium">
+              <CheckCircle2 className="w-4 h-4 text-[#22C55E] flex-shrink-0" />
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <div className="rounded-2xl border border-[#22C55E]/30 bg-[#f0fdf4] px-4 py-3 mb-5">
+          <p className="text-[#15803d] font-black text-xs uppercase tracking-widest mb-2 flex items-center gap-1.5">
+            🎁 <span>BÔNUS INCLUSOS HOJE</span>
+          </p>
+          <ul className="space-y-1.5">
+            {upsellBonuses.map((item, i) => (
+              <li key={i} className="flex items-center gap-2 text-[#15803d] text-sm font-semibold">
+                <CheckCircle2 className="w-4 h-4 text-[#22C55E] flex-shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <button onClick={goUpsell} className="btn-cta-premium w-full mb-3 text-sm md:text-base">
+          QUERO O DESCONTO DE R$12,90
+        </button>
+
+        <button
+          onClick={goBasic}
+          className="w-full text-center text-gray-400 text-xs font-medium hover:text-gray-600 transition-colors py-1"
+        >
+          Não, quero continuar com o plano básico
+        </button>
+      </div>
+    </div>
+  );
+}
+
 /* ─── 7. PLANOS ─── */
 function PlansSection() {
+  const [showUpsell, setShowUpsell] = useState(false);
+
   const basicItems = [
     "100 Dinâmicas Cristãs Infantis",
     "Acesso imediato",
@@ -420,109 +514,123 @@ function PlansSection() {
   ];
 
   return (
-    <section id="oferta" className="py-16 px-4 bg-gradient-to-br from-[#fffde7] to-[#fff8e1]">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-10">
-          <div className="inline-block bg-[#dc2626] text-white font-black text-sm px-5 py-2 rounded-full mb-4 uppercase tracking-widest badge-animate shadow-lg">
-            🔥 OFERTA ESPECIAL DE HOJE
-          </div>
-          <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-2">
-            Escolha o melhor plano para você
-          </h2>
-        </div>
+    <>
+      {showUpsell && <UpsellModal onClose={() => setShowUpsell(false)} />}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-
-          {/* ── PLANO BÁSICO ── */}
-          <div className="bg-white rounded-3xl p-7 shadow-lg border-2 border-gray-200 text-center flex flex-col">
-            <h3 className="text-xl font-black text-[#1E293B] mb-1">Plano Básico</h3>
-            <div className="flex items-end justify-center gap-1 my-4">
-              <span className="text-[#22C55E] font-black text-2xl mb-1">R$</span>
-              <span className="text-[#22C55E] font-black text-5xl leading-none">5</span>
-              <span className="text-[#22C55E] font-black text-2xl mb-1">,90</span>
+      <section id="oferta" className="py-16 px-4 bg-gradient-to-br from-[#fffde7] to-[#fff8e1]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-block bg-[#dc2626] text-white font-black text-sm px-5 py-2 rounded-full mb-4 uppercase tracking-widest badge-animate shadow-lg">
+              🔥 OFERTA ESPECIAL DE HOJE
             </div>
-            <ul className="space-y-2.5 mb-7 text-left">
-              {basicItems.map((item, i) => (
-                <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
-                  <CheckCircle2 className="w-5 h-5 text-[#22C55E] flex-shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-auto">
-              <a href={CHECKOUT_LINK} target="_blank" rel="noopener noreferrer" className="btn-cta w-full block text-sm py-4">
-                QUERO O PLANO BÁSICO
-              </a>
-            </div>
+            <h2 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-2">
+              Escolha o melhor plano para você
+            </h2>
           </div>
 
-          {/* ── PLANO COMPLETO ── */}
-          <div className="plan-featured bg-white rounded-3xl p-7 shadow-2xl border-[3px] border-[#FFD600] text-center flex flex-col relative">
-            <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-              <div className="bg-[#FFD600] text-[#1E293B] font-black text-xs px-5 py-1.5 rounded-full shadow-md uppercase tracking-widest whitespace-nowrap">
-                ⭐ MAIS ESCOLHIDO
-              </div>
-            </div>
-            <div className="mt-4">
-              <h3 className="text-xl font-black text-[#1E293B] mb-1">Plano Completo</h3>
-              <p className="text-sm text-gray-400 font-medium mb-1">
-                De <span className="line-through text-[#EF4444] font-bold">R$ 97,90</span>
-              </p>
-              <div className="price-pulse-complete gap-1 mb-4 justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+
+            {/* ── PLANO BÁSICO ── */}
+            <div className="bg-white rounded-3xl p-7 shadow-lg border-2 border-gray-200 text-center flex flex-col">
+              <h3 className="text-xl font-black text-[#1E293B] mb-1">Plano Básico</h3>
+              <div className="flex items-end justify-center gap-1 my-4">
                 <span className="text-[#22C55E] font-black text-2xl mb-1">R$</span>
-                <span className="text-[#22C55E] font-black text-5xl leading-none">19</span>
+                <span className="text-[#22C55E] font-black text-5xl leading-none">5</span>
                 <span className="text-[#22C55E] font-black text-2xl mb-1">,90</span>
               </div>
-            </div>
-
-            <ul className="space-y-2.5 mb-4 text-left">
-              {completeMain.map((item, i) =>
-                item === "__whatsapp__" ? (
-                  <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
-                    <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="16" cy="16" r="16" fill="#25D366"/>
-                      <path d="M23.5 8.5A10.47 10.47 0 0 0 16 5.5C10.2 5.5 5.5 10.2 5.5 16c0 1.85.49 3.65 1.41 5.23L5.5 26.5l5.41-1.41A10.46 10.46 0 0 0 16 26.5c5.8 0 10.5-4.7 10.5-10.5 0-2.8-1.09-5.43-3-7.5zM16 24.77a8.73 8.73 0 0 1-4.45-1.22l-.32-.19-3.21.84.86-3.13-.21-.33A8.73 8.73 0 0 1 7.23 16c0-4.84 3.93-8.77 8.77-8.77A8.77 8.77 0 0 1 24.77 16c0 4.84-3.93 8.77-8.77 8.77zm4.81-6.57c-.26-.13-1.55-.77-1.79-.85-.24-.09-.41-.13-.58.13-.17.26-.66.85-.81 1.02-.15.17-.3.19-.56.06-.26-.13-1.1-.41-2.1-1.3-.78-.69-1.3-1.55-1.45-1.81-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.58-1.4-.8-1.92-.21-.5-.43-.43-.58-.44h-.5c-.17 0-.45.06-.69.32-.24.26-.9.88-.9 2.14s.92 2.49 1.05 2.66c.13.17 1.81 2.77 4.38 3.88.61.26 1.09.42 1.46.54.61.19 1.17.16 1.61.1.49-.07 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.06-.11-.24-.17-.5-.3z" fill="white"/>
-                    </svg>
-                    Receba pelo WhatsApp
-                  </li>
-                ) : (
+              <ul className="space-y-2.5 mb-7 text-left">
+                {basicItems.map((item, i) => (
                   <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
                     <CheckCircle2 className="w-5 h-5 text-[#22C55E] flex-shrink-0" />
                     {item}
                   </li>
-                )
-              )}
-            </ul>
-
-            <div className="rounded-2xl border border-[#22C55E]/30 bg-[#f0fdf4] px-4 py-3 mb-5">
-              <p className="text-[#15803d] font-black text-xs uppercase tracking-widest mb-2.5 flex items-center gap-1.5">
-                🎁 <span>Bônus Grátis inclusos</span>
-              </p>
-              <ul className="space-y-2">
-                {completeBonuses.map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-[#15803d] text-sm font-semibold">
-                    <span className="text-base leading-none">🎁</span>
-                    <span>{item}</span>
-                    <span className="ml-auto text-[10px] font-black bg-[#22C55E] text-white px-2 py-0.5 rounded-full whitespace-nowrap">GRÁTIS</span>
-                  </li>
                 ))}
               </ul>
+              <div className="mt-auto">
+                <button
+                  onClick={() => setShowUpsell(true)}
+                  className="btn-cta w-full text-sm py-4"
+                >
+                  QUERO O PLANO BÁSICO
+                </button>
+              </div>
             </div>
-            <CountdownTimer />
-            <div className="mt-4">
-              <a href={CHECKOUT_LINK} target="_blank" rel="noopener noreferrer" className="btn-cta w-full block text-base py-5">
-                QUERO O PLANO COMPLETO
-              </a>
-            </div>
-            <div className="mt-4 flex flex-wrap justify-center gap-3 text-xs text-gray-500 font-medium">
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Pagamento seguro</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Liberação imediata</span>
-            </div>
-          </div>
 
+            {/* ── PLANO COMPLETO ── */}
+            <div className="plan-featured bg-white rounded-3xl p-7 shadow-2xl border-[3px] border-[#FFD600] text-center flex flex-col relative">
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2">
+                <div className="bg-[#FFD600] text-[#1E293B] font-black text-xs px-5 py-1.5 rounded-full shadow-md uppercase tracking-widest whitespace-nowrap">
+                  ⭐ MAIS ESCOLHIDO
+                </div>
+              </div>
+              <div className="mt-4">
+                <h3 className="text-xl font-black text-[#1E293B] mb-1">Plano Completo</h3>
+                <p className="text-sm text-gray-400 font-medium mb-1">
+                  De <span className="line-through text-[#EF4444] font-bold">R$ 97,90</span>
+                </p>
+                <div className="price-pulse-complete gap-1 mb-4 justify-center">
+                  <span className="text-[#22C55E] font-black text-2xl mb-1">R$</span>
+                  <span className="text-[#22C55E] font-black text-5xl leading-none">19</span>
+                  <span className="text-[#22C55E] font-black text-2xl mb-1">,90</span>
+                </div>
+              </div>
+
+              <ul className="space-y-2.5 mb-4 text-left">
+                {completeMain.map((item, i) =>
+                  item === "__whatsapp__" ? (
+                    <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
+                      <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="16" fill="#25D366"/>
+                        <path d="M23.5 8.5A10.47 10.47 0 0 0 16 5.5C10.2 5.5 5.5 10.2 5.5 16c0 1.85.49 3.65 1.41 5.23L5.5 26.5l5.41-1.41A10.46 10.46 0 0 0 16 26.5c5.8 0 10.5-4.7 10.5-10.5 0-2.8-1.09-5.43-3-7.5zM16 24.77a8.73 8.73 0 0 1-4.45-1.22l-.32-.19-3.21.84.86-3.13-.21-.33A8.73 8.73 0 0 1 7.23 16c0-4.84 3.93-8.77 8.77-8.77A8.77 8.77 0 0 1 24.77 16c0 4.84-3.93 8.77-8.77 8.77zm4.81-6.57c-.26-.13-1.55-.77-1.79-.85-.24-.09-.41-.13-.58.13-.17.26-.66.85-.81 1.02-.15.17-.3.19-.56.06-.26-.13-1.1-.41-2.1-1.3-.78-.69-1.3-1.55-1.45-1.81-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.58-1.4-.8-1.92-.21-.5-.43-.43-.58-.44h-.5c-.17 0-.45.06-.69.32-.24.26-.9.88-.9 2.14s.92 2.49 1.05 2.66c.13.17 1.81 2.77 4.38 3.88.61.26 1.09.42 1.46.54.61.19 1.17.16 1.61.1.49-.07 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.06-.11-.24-.17-.5-.3z" fill="white"/>
+                      </svg>
+                      Receba pelo WhatsApp
+                    </li>
+                  ) : (
+                    <li key={i} className="flex items-center gap-2.5 text-[#1E293B] text-sm font-medium">
+                      <CheckCircle2 className="w-5 h-5 text-[#22C55E] flex-shrink-0" />
+                      {item}
+                    </li>
+                  )
+                )}
+              </ul>
+
+              <div className="rounded-2xl border border-[#22C55E]/30 bg-[#f0fdf4] px-4 py-3 mb-5">
+                <p className="text-[#15803d] font-black text-xs uppercase tracking-widest mb-2.5 flex items-center gap-1.5">
+                  🎁 <span>Bônus Grátis inclusos</span>
+                </p>
+                <ul className="space-y-2">
+                  {completeBonuses.map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-[#15803d] text-sm font-semibold">
+                      <span className="text-base leading-none">🎁</span>
+                      <span>{item}</span>
+                      <span className="ml-auto text-[10px] font-black bg-[#22C55E] text-white px-2 py-0.5 rounded-full whitespace-nowrap">GRÁTIS</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <CountdownTimer />
+
+              <div className="mt-4">
+                <a
+                  href={CHECKOUT_LINK_COMPLETE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-cta-premium"
+                >
+                  QUERO ACESSO COMPLETO AGORA
+                </a>
+              </div>
+              <div className="mt-4 flex flex-wrap justify-center gap-3 text-xs text-gray-500 font-medium">
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Pagamento seguro</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#22C55E]" />Liberação imediata</span>
+              </div>
+            </div>
+
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
