@@ -1,0 +1,11 @@
+[build]
+  command   = "pnpm install --frozen-lockfile && pnpm --filter @workspace/passa-ou-repassa run build"
+  publish   = "artifacts/passa-ou-repassa/dist/public"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
