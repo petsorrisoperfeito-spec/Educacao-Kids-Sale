@@ -180,8 +180,8 @@ function HeroSection() {
 function ProofSection() {
   const samples = [
     { src: sample1Img, alt: "Plano Devocional para Crianças", label: "📖 Plano Devocional para Crianças" },
-    { src: sample2Img, alt: "Página para colorir bíblica", label: "🎨 Páginas para Colorir" },
-    { src: sample3Img, alt: "Dinâmica estruturada com versículo", label: "📖 Dinâmica Completa" },
+    { src: sample2Img, alt: "Página para colorir bíblica", label: "🎨 Desenhos para Colorir" },
+    { src: sample3Img, alt: "Dinâmica estruturada com versículo", label: "📖 +420 Dinâmicas" },
   ];
 
   return (
